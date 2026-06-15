@@ -652,7 +652,7 @@ const canvas = document.getElementById('sprayCanvas');
 const capEl = document.querySelector('.flacon-cap');
 const sctx = canvas.getContext('2d');
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const DPR = Math.min(devicePixelRatio, 2);
+const DPR = Math.min(devicePixelRatio, 1.25);   // холст спрея в пониженном разрешении — мягкое свечение этого не выдаёт
 
 /* мягкий спрайт частицы (радиальное свечение) — рисуем один раз */
 const spr = document.createElement('canvas'); spr.width = spr.height = 32;
@@ -698,14 +698,14 @@ function emitSpray(){
   const ox = (sr.left - cr.left) + sr.width*0.34;   // сопло слева сверху
   const oy = (sr.top  - cr.top ) + sr.height*0.105;
   const SPREAD = 0.5;
-  for(let i=0;i<1300;i++){                            // мелкая морось
+  for(let i=0;i<720;i++){                             // мелкая морось
     const a = Math.PI - 0.1 + (Math.random()-0.5)*2*SPREAD;
     const sp = 3 + Math.random()*18;
     const edge = Math.abs(a-Math.PI)/SPREAD;
     particles.push({ x:ox+(Math.random()-0.5)*4, y:oy+(Math.random()-0.5)*4,
       vx:Math.cos(a)*sp, vy:Math.sin(a)*sp*0.85-0.4,
-      r:0.6+Math.random()*1.8+edge*0.8, grow:0.05+Math.random()*0.1,
-      life:1, decay:0.0035+Math.random()*0.006, grav:0.014+Math.random()*0.03, alpha:0.12+Math.random()*0.13 });
+      r:0.6+Math.random()*1.8+edge*0.8, grow:0.03+Math.random()*0.05,
+      life:1, decay:0.0035+Math.random()*0.006, grav:0.014+Math.random()*0.03, alpha:0.14+Math.random()*0.14 });
   }
   for(let i=0;i<60;i++){                              // редкие крупные капли — летят дальше всех
     const a = Math.PI - 0.04 + (Math.random()-0.5)*2*(SPREAD*0.55);
@@ -714,12 +714,12 @@ function emitSpray(){
       r:0.5+Math.random()*0.9, grow:0.008, life:1, decay:0.007+Math.random()*0.008,
       grav:0.06+Math.random()*0.06, alpha:0.5+Math.random()*0.3 });
   }
-  for(let i=0;i<26;i++){                              // мягкое облако-туман
+  for(let i=0;i<14;i++){                              // мягкое облако-туман
     const a = Math.PI + (Math.random()-0.5)*0.9;
     const sp = 1 + Math.random()*5;
     particles.push({ x:ox, y:oy, vx:Math.cos(a)*sp, vy:Math.sin(a)*sp*0.7,
-      r:8+Math.random()*16, grow:0.4+Math.random()*0.5, life:1, decay:0.008+Math.random()*0.008,
-      grav:0.005, alpha:0.05+Math.random()*0.05 });
+      r:6+Math.random()*10, grow:0.22+Math.random()*0.3, life:1, decay:0.008+Math.random()*0.008,
+      grav:0.005, alpha:0.06+Math.random()*0.06 });
   }
   if(!rafId) rafId = requestAnimationFrame(drawSpray);
 }
@@ -729,7 +729,15 @@ function pressCap(){
   capEl.style.animation = 'none';
   setTimeout(()=>{ if(capEl) capEl.style.animation = 'capPress .7s var(--ease)'; }, 16);
 }
-function doSpray(){ if(reduceMotion) return; pressCap(); emitSpray(); }
+let lastSprayTs = 0;
+function doSpray(){
+  if(reduceMotion) return;
+  const now = performance.now();
+  if(now - lastSprayTs < 700) return;     // не копим вспышки при частых кликах
+  if(particles.length > 1500) return;     // защита от перегруза
+  lastSprayTs = now;
+  pressCap(); emitSpray();
+}
 
 stage.addEventListener('click', doSpray);          // клик по флакону = пшик
 
