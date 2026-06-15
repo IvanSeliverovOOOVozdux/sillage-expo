@@ -1,10 +1,47 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-lang="ru">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SILLAGE — Международная выставка нишевой парфюмерии</title>
-<meta name="description" content="SILLAGE — международная выставка авторской и нишевой парфюмерии. Москва, Центральный Манеж, 13–17 ноября 2026." />
+<title>SILLAGE — Международная выставка нишевой парфюмерии · Москва 2026</title>
+<meta name="description" content="SILLAGE — международная выставка авторской и нишевой парфюмерии. 48 домов из 19 стран. Москва, Центральный Манеж, 13–17 ноября 2026. Билеты, программа, участники." />
+<meta name="keywords" content="нишевая парфюмерия, выставка парфюмерии, Москва 2026, niche perfume exhibition, artistic perfumery, SILLAGE" />
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="SILLAGE Exposition" />
+<meta property="og:title" content="SILLAGE — выставка нишевой парфюмерии · Москва, 13–17 ноября 2026" />
+<meta property="og:description" content="Пять дней внутри аромата. 48 независимых домов из 19 стран, редкие материалы и инсталляции, где запах становится пространством." />
+<meta property="og:locale" content="ru_RU" />
+<meta property="og:locale:alternate" content="en_US" />
+<meta property="og:url" content="https://sillage-expo.vercel.app/" />
+<meta property="og:image" content="https://images.unsplash.com/photo-1764061148216-f786bcc4b353?q=80&w=1200&h=630&fit=crop" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="SILLAGE — выставка нишевой парфюмерии · Москва 2026" />
+<meta name="twitter:description" content="Пять дней внутри аромата. 48 домов из 19 стран. 13–17 ноября 2026, Центральный Манеж." />
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1764061148216-f786bcc4b353?q=80&w=1200&h=630&fit=crop" />
+<link rel="canonical" href="https://sillage-expo.vercel.app/" />
+<!-- Event schema -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Festival",
+  "name":"SILLAGE — International Niche Perfumery Exhibition",
+  "description":"Five days inside scent: 48 independent perfume houses from 19 countries, rare raw materials and immersive installations.",
+  "startDate":"2026-11-13",
+  "endDate":"2026-11-17",
+  "eventStatus":"https://schema.org/EventScheduled",
+  "eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",
+  "location":{"@type":"Place","name":"Central Manege","address":{"@type":"PostalAddress","streetAddress":"Manezhnaya Square, 1","addressLocality":"Moscow","addressCountry":"RU"}},
+  "image":["https://images.unsplash.com/photo-1764061148216-f786bcc4b353?q=80&w=1200&h=630&fit=crop"],
+  "url":"https://sillage-expo.vercel.app/",
+  "organizer":{"@type":"Organization","name":"SILLAGE Exposition","url":"https://sillage-expo.vercel.app/"},
+  "offers":[
+    {"@type":"Offer","name":"Day pass","price":"2400","priceCurrency":"RUB","availability":"https://schema.org/InStock","url":"https://sillage-expo.vercel.app/#tickets"},
+    {"@type":"Offer","name":"Full access","price":"9800","priceCurrency":"RUB","availability":"https://schema.org/InStock","url":"https://sillage-expo.vercel.app/#tickets"},
+    {"@type":"Offer","name":"VIP Atelier","price":"24000","priceCurrency":"RUB","availability":"https://schema.org/InStock","url":"https://sillage-expo.vercel.app/#tickets"}
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Prata&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -39,6 +76,10 @@ body{
 @media (prefers-reduced-motion:reduce){
   *{ animation:none!important; transition:none!important; scroll-behavior:auto!important; }
 }
+
+/* i18n: показываем только активный язык */
+html[data-lang="ru"] .t-en{ display:none; }
+html[data-lang="en"] .t-ru{ display:none; }
 
 /* фон: золотые свечения + тонкое зерно */
 body::before{
@@ -86,29 +127,29 @@ header.scrolled{
 }
 .brand{ font-family:'Prata',serif; font-size:1.5rem; letter-spacing:.22em; color:var(--text); text-decoration:none; }
 .brand span{ color:var(--gold); }
-nav.main{ display:flex; align-items:center; gap:34px; }
-nav.main a{
+nav.main{ display:flex; align-items:center; gap:30px; }
+nav.main a.nav-link{
   color:var(--muted); text-decoration:none; font-size:.86rem; letter-spacing:.05em;
   position:relative; transition:color .3s var(--ease);
 }
-nav.main a::after{
+nav.main a.nav-link::after{
   content:""; position:absolute; left:0; bottom:-6px; height:1px; width:0; background:var(--gold);
   transition:width .4s var(--ease);
 }
-nav.main a:hover{ color:var(--text); } nav.main a:hover::after{ width:100%; }
-/* кнопки в навигации: тёмный текст на золоте для контраста */
-nav.main a.btn-gold{ color:#1a1306; }
-nav.main a.btn-gold:hover{ color:#1a1306; }
-nav.main a.btn-gold::after{ display:none; }
-nav.main a.btn-ghost{ color:var(--text); }
-nav.main a.btn-ghost::after{ display:none; }
+nav.main a.nav-link:hover{ color:var(--text); } nav.main a.nav-link:hover::after{ width:100%; }
+/* язык */
+.lang{ display:inline-flex; align-items:center; gap:7px; }
+.lang button{ background:none; border:none; cursor:pointer; font-family:'Manrope'; font-weight:600; font-size:.78rem; letter-spacing:.08em; color:var(--muted-2); padding:2px; transition:color .3s; }
+.lang button.active{ color:var(--gold-soft); }
+.lang button:hover{ color:var(--text); }
+.lang i{ color:var(--muted-2); font-style:normal; }
 .btn{
   font-family:'Manrope',sans-serif; font-size:.84rem; font-weight:600; letter-spacing:.04em;
   border:none; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:.6em;
   padding:13px 26px; border-radius:2px; transition:transform .25s var(--ease), background .35s var(--ease), color .35s var(--ease), box-shadow .35s var(--ease);
 }
 .btn-gold{ background:var(--gold); color:#1a1306; box-shadow:0 0 0 rgba(201,163,90,0); }
-.btn-gold:hover{ background:var(--gold-soft); transform:translateY(-2px); box-shadow:0 14px 34px -12px rgba(201,163,90,.6); }
+.btn-gold:hover{ background:var(--gold-soft); transform:translateY(-2px); box-shadow:0 14px 34px -12px rgba(201,163,90,.6); color:#1a1306; }
 .btn-gold:active{ transform:translateY(0) scale(.98); }
 .btn-ghost{ background:transparent; color:var(--text); border:1px solid var(--line); }
 .btn-ghost:hover{ border-color:var(--gold); color:var(--gold-soft); transform:translateY(-2px); }
@@ -136,16 +177,11 @@ nav.main a.btn-ghost::after{ display:none; }
   filter:blur(20px); animation:breathe 7s var(--ease) infinite alternate;
 }
 @keyframes breathe{ from{ transform:scale(.92); opacity:.7 } to{ transform:scale(1.08); opacity:1 } }
-.flacon-stage{ position:relative; width:min(340px,72%); }
+.flacon-stage{ position:relative; width:min(340px,72%); cursor:pointer; }
 .flacon{ position:relative; width:100%; display:block; animation:float 8s ease-in-out infinite; }
 @keyframes float{ 0%,100%{ transform:translateY(-10px) } 50%{ transform:translateY(10px) } }
-
-/* колпачок-помпа: нажимается при «пшике» и возвращается (управляется из JS) */
-.flacon-stage{ cursor:pointer; }
 .flacon-cap{ transform-box:fill-box; transform-origin:center; }
 @keyframes capPress{ 0%{transform:translateY(0)} 16%{transform:translateY(9px)} 58%{transform:translateY(9px)} 100%{transform:translateY(0)} }
-
-/* «пшик»: облако мельчайших частиц рисуется на canvas */
 #sprayCanvas{ position:absolute; top:0; left:50%; transform:translateX(-50%); width:100vw; height:100%; z-index:1; pointer-events:none; }
 
 .scroll-cue{ position:absolute; bottom:34px; left:clamp(20px,4vw,56px); display:flex; align-items:center; gap:12px; color:var(--muted-2); font-size:.72rem; letter-spacing:.24em; text-transform:uppercase; }
@@ -159,8 +195,6 @@ nav.main a.btn-ghost::after{ display:none; }
 .about-statement{ font-family:'Prata',serif; font-size:clamp(1.32rem,2.2vw,1.95rem); line-height:1.4; margin:0; }
 .about-statement b{ color:var(--gold-soft); font-weight:400; }
 .about-text{ color:var(--muted); margin:24px 0 0; max-width:54ch; }
-
-/* фото-коллаж */
 .collage{ position:relative; padding-bottom:clamp(40px,6vw,72px); padding-right:clamp(34px,5vw,64px); }
 .collage .frame{ position:relative; overflow:hidden; border:1px solid var(--line-soft); }
 .collage .big{ aspect-ratio:4/5; }
@@ -169,8 +203,6 @@ nav.main a.btn-ghost::after{ display:none; }
 .collage .frame:hover img{ transform:scale(1.05); filter:none; }
 .collage .grad{ position:absolute; inset:0; background:linear-gradient(180deg,transparent 45%, rgba(11,10,8,.62)); pointer-events:none; }
 .collage .cap{ position:absolute; left:18px; bottom:16px; z-index:2; font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--text); }
-
-/* лента статистики */
 .stats-band{ margin-top:clamp(48px,7vh,90px); display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line); }
 .stat{ padding:30px clamp(14px,2vw,28px) 4px; }
 .stat + .stat{ border-left:1px solid var(--line-soft); }
@@ -194,7 +226,6 @@ nav.main a.btn-ghost::after{ display:none; }
 .tier:hover{ background:var(--panel-2); transform:translateY(-2px); }
 .tier.active{ background:linear-gradient(180deg, rgba(201,163,90,.22), rgba(201,163,90,.06)); border-color:var(--gold); }
 .tier.active .t-name{ color:var(--gold-soft); }
-
 .tier-detail .eyebrow{ margin-bottom:18px; }
 .tier-detail .d-name{ font-family:'Prata',serif; font-size:clamp(2rem,4vw,3rem); }
 .tier-detail .d-time{ color:var(--gold); font-size:.9rem; letter-spacing:.06em; margin:10px 0 18px; }
@@ -217,6 +248,31 @@ nav.main a.btn-ghost::after{ display:none; }
 .house .meta{ font-size:.82rem; color:var(--muted); }
 .house .accord{ font-size:.8rem; color:var(--gold); letter-spacing:.04em; text-align:right; }
 .house:hover .nm{ color:var(--gold-soft); }
+/* стена логотипов */
+.logos{ margin-top:clamp(44px,6vh,76px); display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--line-soft); border:1px solid var(--line-soft); }
+.logos .lg{ background:var(--bg); display:grid; place-items:center; padding:26px 10px; min-height:94px; text-align:center; font-family:'Prata',serif; font-size:1.04rem; color:var(--muted); letter-spacing:.04em; transition:color .3s, background .3s; }
+.logos .lg:hover{ color:var(--gold-soft); background:var(--panel); }
+
+/* ---------- PROGRAMME ---------- */
+.prog-tabs{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:34px; }
+.prog-tab{ background:transparent; border:1px solid var(--line-soft); color:var(--muted); cursor:pointer; padding:12px 18px; border-radius:2px; transition:border-color .3s var(--ease), background .3s var(--ease); display:flex; flex-direction:column; gap:3px; align-items:flex-start; min-width:96px; }
+.prog-tab .d{ font-family:'Prata',serif; font-size:1.05rem; color:var(--text); }
+.prog-tab .dt{ font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted-2); }
+.prog-tab:hover{ border-color:var(--line); }
+.prog-tab.active{ border-color:var(--gold); background:linear-gradient(180deg, rgba(201,163,90,.14), rgba(201,163,90,.03)); }
+.prog-tab.active .d{ color:var(--gold-soft); }
+.prog-day{ display:none; }
+.prog-day.active{ display:block; }
+.sess{ display:grid; grid-template-columns:120px 1fr auto; gap:24px; align-items:baseline; padding:22px 6px; border-top:1px solid var(--line-soft); }
+.sess .tm{ font-family:'Prata',serif; color:var(--gold); font-size:1.05rem; }
+.sess .ti{ font-family:'Prata',serif; font-size:1.25rem; }
+.sess .sp{ font-size:.82rem; color:var(--muted); text-align:right; }
+.speakers{ margin-top:clamp(48px,7vh,80px); display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+.spk .ph{ aspect-ratio:1; overflow:hidden; border:1px solid var(--line-soft); margin-bottom:14px; }
+.spk img{ width:100%; height:100%; object-fit:cover; pointer-events:none; filter:grayscale(1) sepia(.3) brightness(.85) contrast(1.03); transition:filter .6s var(--ease), transform 1s var(--ease); }
+.spk:hover img{ filter:none; transform:scale(1.04); }
+.spk .nm{ font-family:'Prata',serif; font-size:1.2rem; }
+.spk .ro{ font-size:.8rem; color:var(--muted); margin-top:4px; }
 
 /* ---------- GALLERY ---------- */
 .gallery{ display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:200px; gap:14px; }
@@ -228,6 +284,31 @@ nav.main a.btn-ghost::after{ display:none; }
 .gItem .cap{ position:absolute; left:16px; bottom:14px; z-index:2; font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; color:var(--text); }
 .gItem.big{ grid-column:span 2; grid-row:span 2; }
 .gItem.tall{ grid-row:span 2; }
+
+/* ---------- TESTIMONIALS / PRESS ---------- */
+.voices{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.voice{ border:1px solid var(--line-soft); background:var(--panel); padding:30px 28px; display:flex; flex-direction:column; gap:18px; }
+.voice .q{ font-family:'Prata',serif; font-size:1.18rem; line-height:1.45; color:var(--text); }
+.voice .by{ display:flex; align-items:center; gap:12px; margin-top:auto; }
+.voice .av{ width:44px; height:44px; border-radius:50%; overflow:hidden; flex-shrink:0; border:1px solid var(--line); }
+.voice .av img{ width:100%; height:100%; object-fit:cover; pointer-events:none; filter:grayscale(1) sepia(.3); }
+.voice .nm{ font-size:.92rem; color:var(--text); }
+.voice .ro{ font-size:.78rem; color:var(--muted); }
+.press{ margin-top:clamp(40px,6vh,64px); display:flex; flex-wrap:wrap; align-items:center; gap:14px 34px; border-top:1px solid var(--line-soft); padding-top:30px; }
+.press .lbl{ font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted-2); }
+.press .pp{ font-family:'Prata',serif; font-size:1.15rem; color:var(--muted); letter-spacing:.04em; transition:color .3s; }
+.press .pp:hover{ color:var(--gold-soft); }
+
+/* ---------- EXHIBITORS ---------- */
+.exhibit{ display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(40px,6vw,80px); align-items:center; border:1px solid var(--line); background:var(--panel); padding:clamp(34px,5vw,64px); }
+.exhibit h2{ font-size:clamp(1.9rem,3.5vw,2.8rem); margin:.3em 0 .5em; }
+.exhibit ul{ list-style:none; display:flex; flex-direction:column; gap:14px; margin:22px 0 28px; }
+.exhibit li{ display:flex; gap:12px; color:var(--muted); font-size:.96rem; }
+.exhibit li svg{ width:18px; height:18px; color:var(--gold); flex-shrink:0; margin-top:3px; }
+.exhibit-stats{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:var(--line-soft); border:1px solid var(--line-soft); }
+.exhibit-stats .s{ background:var(--bg); padding:24px 18px; }
+.exhibit-stats .n{ font-family:'Prata',serif; font-size:2.1rem; color:var(--gold); line-height:1; }
+.exhibit-stats .l{ font-size:.78rem; color:var(--muted); margin-top:8px; }
 
 /* ---------- TICKETS ---------- */
 .tickets{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; align-items:stretch; }
@@ -249,17 +330,16 @@ nav.main a.btn-ghost::after{ display:none; }
 /* ---------- REGISTRATION ---------- */
 .reg{ display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(40px,6vw,90px); align-items:center;
   border:1px solid var(--line); background:var(--panel); padding:clamp(34px,5vw,70px); }
+.reg h2{ font-size:clamp(1.9rem,3.5vw,2.8rem); margin:.4em 0 .4em; }
 .reg-form{ display:grid; gap:20px; }
 .field{ display:flex; flex-direction:column; gap:8px; }
 .field label{ font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
-.field input, .field select{
+.field input{
   background:rgba(0,0,0,.25); border:1px solid var(--line-soft); color:var(--text);
   padding:14px 16px; border-radius:2px; font-family:'Manrope'; font-size:1rem; transition:border-color .3s var(--ease);
 }
-.field input:focus, .field select:focus{ outline:none; border-color:var(--gold); }
+.field input:focus{ outline:none; border-color:var(--gold); }
 .field .err{ color:#e08a6b; font-size:.78rem; min-height:1em; }
-
-/* кастомный селект */
 .cselect{ position:relative; }
 .cselect-trigger{
   width:100%; display:flex; align-items:center; justify-content:space-between; gap:14px;
@@ -286,6 +366,14 @@ nav.main a.btn-ghost::after{ display:none; }
 .reg-ok{ display:none; align-items:center; gap:14px; color:var(--gold-soft); font-size:1.05rem; padding:14px 0; }
 .reg-ok.show{ display:flex; }
 
+/* ---------- INSTAGRAM ---------- */
+.ig{ display:grid; grid-template-columns:repeat(6,1fr); gap:10px; }
+.ig a{ position:relative; aspect-ratio:1; overflow:hidden; border:1px solid var(--line-soft); display:block; }
+.ig img{ width:100%; height:100%; object-fit:cover; pointer-events:none; filter:grayscale(1) sepia(.32) brightness(.8) contrast(1.04); transition:filter .6s var(--ease), transform 1s var(--ease); }
+.ig a:hover img{ filter:none; transform:scale(1.06); }
+.ig a::after{ content:""; position:absolute; inset:0; background:rgba(11,10,8,.22); opacity:0; transition:opacity .3s; }
+.ig a:hover::after{ opacity:1; }
+
 /* ---------- FOOTER ---------- */
 footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
 .foot-grid{ display:flex; justify-content:space-between; gap:40px; flex-wrap:wrap; align-items:flex-start; }
@@ -304,24 +392,31 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
 /* ---------- RESPONSIVE ---------- */
 @media (max-width:900px){
   nav.main{ position:fixed; inset:0 0 0 auto; width:min(320px,82vw); flex-direction:column; justify-content:center;
-    align-items:flex-start; gap:26px; padding:40px; background:rgba(12,10,7,.96); backdrop-filter:blur(16px);
+    align-items:flex-start; gap:24px; padding:40px; background:rgba(12,10,7,.96); backdrop-filter:blur(16px);
     transform:translateX(100%); transition:transform .5s var(--ease); border-left:1px solid var(--line); }
   nav.main.open{ transform:none; }
-  nav.main a{ font-size:1.1rem; }
+  nav.main a.nav-link{ font-size:1.1rem; }
   nav.main .btn{ width:100%; justify-content:center; }
   .menu-toggle{ display:block; z-index:101; }
   .hero{ grid-template-columns:1fr; text-align:left; padding-top:120px; }
   .hero-right{ order:-1; min-height:42vh; }
-  .about-grid,.pyramid-wrap,.reg{ grid-template-columns:1fr; }
+  .about-grid,.pyramid-wrap,.reg,.exhibit{ grid-template-columns:1fr; }
   .houses{ grid-template-columns:1fr; }
   .tickets{ grid-template-columns:1fr; }
   .gallery{ grid-template-columns:1fr 1fr; grid-auto-rows:170px; }
   .gItem.big{ grid-column:span 2; grid-row:span 1; }
+  .logos{ grid-template-columns:repeat(3,1fr); }
+  .speakers{ grid-template-columns:1fr 1fr; }
+  .voices{ grid-template-columns:1fr; }
+  .ig{ grid-template-columns:repeat(3,1fr); }
 }
 @media (max-width:560px){
   .hero-meta{ gap:24px; }
   .stats-band{ grid-template-columns:1fr 1fr; }
   .stats-band .stat:nth-child(odd){ border-left:0; }
+  .exhibit-stats{ grid-template-columns:1fr; }
+  .sess{ grid-template-columns:1fr; gap:6px; } .sess .sp{ text-align:left; }
+  .logos{ grid-template-columns:repeat(2,1fr); }
   .row-2{ grid-template-columns:1fr; }
   .foot-bottom{ flex-direction:column; }
 }
@@ -333,12 +428,13 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
 <header id="header">
   <a href="#" class="brand">SILL<span>A</span>GE</a>
   <nav class="main" id="nav">
-    <a href="#about">О выставке</a>
-    <a href="#notes">Архитектура аромата</a>
-    <a href="#houses">Участники</a>
-    <a href="#gallery">Инсталляции</a>
-    <a href="#tickets">Билеты</a>
-    <a href="#reg" class="btn btn-gold">Регистрация</a>
+    <a class="nav-link" href="#about"><span class="t-ru">О выставке</span><span class="t-en">About</span></a>
+    <a class="nav-link" href="#notes"><span class="t-ru">Ноты</span><span class="t-en">Notes</span></a>
+    <a class="nav-link" href="#houses"><span class="t-ru">Участники</span><span class="t-en">Houses</span></a>
+    <a class="nav-link" href="#programme"><span class="t-ru">Программа</span><span class="t-en">Programme</span></a>
+    <a class="nav-link" href="#tickets"><span class="t-ru">Билеты</span><span class="t-en">Tickets</span></a>
+    <span class="lang"><button type="button" data-setlang="ru">RU</button><i>/</i><button type="button" data-setlang="en">EN</button></span>
+    <a href="#reg" class="btn btn-gold"><span class="t-ru">Регистрация</span><span class="t-en">Register</span></a>
   </nav>
   <button class="menu-toggle" id="menuBtn" aria-label="Меню">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -349,17 +445,17 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
 <section class="hero wrap" id="top">
   <canvas id="sprayCanvas"></canvas>
   <div class="hero-left">
-    <span class="eyebrow reveal">Международная выставка нишевой парфюмерии</span>
+    <span class="eyebrow reveal"><span class="t-ru">Международная выставка нишевой парфюмерии</span><span class="t-en">International niche perfumery exhibition</span></span>
     <h1 class="reveal" data-i="1">Sill<em>a</em>ge</h1>
-    <p class="lead reveal" data-i="2">Пять дней внутри аромата. Авторские дома, редкие сырьевые материалы и инсталляции, в которых запах становится пространством.</p>
+    <p class="lead reveal" data-i="2"><span class="t-ru">Пять дней внутри аромата. Авторские дома, редкие сырьевые материалы и инсталляции, в которых запах становится пространством.</span><span class="t-en">Five days inside scent. Independent houses, rare raw materials and installations where fragrance becomes space.</span></p>
     <div class="hero-meta reveal" data-i="3">
-      <div class="item"><div class="k">Даты</div><div class="v">13–17 ноября<br><small>2026</small></div></div>
-      <div class="item"><div class="k">Место</div><div class="v">Москва<br><small>Центральный Манеж</small></div></div>
-      <div class="item"><div class="k">Участники</div><div class="v">48 домов<br><small>из 19 стран</small></div></div>
+      <div class="item"><div class="k"><span class="t-ru">Даты</span><span class="t-en">Dates</span></div><div class="v"><span class="t-ru">13–17 ноября</span><span class="t-en">Nov 13–17</span><br><small>2026</small></div></div>
+      <div class="item"><div class="k"><span class="t-ru">Место</span><span class="t-en">Venue</span></div><div class="v"><span class="t-ru">Москва</span><span class="t-en">Moscow</span><br><small><span class="t-ru">Центральный Манеж</span><span class="t-en">Central Manege</span></small></div></div>
+      <div class="item"><div class="k"><span class="t-ru">Участники</span><span class="t-en">Houses</span></div><div class="v"><span class="t-ru">48 домов</span><span class="t-en">48 houses</span><br><small><span class="t-ru">из 19 стран</span><span class="t-en">from 19 countries</span></small></div></div>
     </div>
     <div class="hero-cta reveal" data-i="4">
-      <a href="#tickets" class="btn btn-gold">Купить билет</a>
-      <a href="#notes" class="btn btn-ghost">Как устроен аромат</a>
+      <a href="#tickets" class="btn btn-gold"><span class="t-ru">Купить билет</span><span class="t-en">Buy a ticket</span></a>
+      <a href="#notes" class="btn btn-ghost"><span class="t-ru">Как устроен аромат</span><span class="t-en">How scent works</span></a>
     </div>
   </div>
   <div class="hero-right reveal" data-i="2">
@@ -408,7 +504,7 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
     </svg>
     </div>
   </div>
-  <div class="scroll-cue"><span class="line"></span> Листайте</div>
+  <div class="scroll-cue"><span class="line"></span> <span class="t-ru">Листайте</span><span class="t-en">Scroll</span></div>
 </section>
 
 <!-- ABOUT -->
@@ -417,26 +513,28 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
     <div class="about-grid">
       <div class="collage reveal">
         <div class="frame big">
-          <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?q=80&w=1100&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-atelier/800/1000'" alt="Ольфакторное ателье" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?q=80&w=1100&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-atelier/800/1000'" alt="Olfactory atelier" loading="lazy">
           <div class="grad"></div>
-          <span class="cap">Ольфакторное ателье</span>
+          <span class="cap"><span class="t-ru">Ольфакторное ателье</span><span class="t-en">Olfactory atelier</span></span>
         </div>
         <div class="frame small">
-          <img src="https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?q=80&w=800&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-materials/700/700'" alt="Сырьевые материалы" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?q=80&w=800&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-materials/700/700'" alt="Raw materials" loading="lazy">
         </div>
       </div>
       <div class="reveal" data-i="1">
-        <span class="eyebrow">О выставке</span>
-        <h2>Запах как форма искусства</h2>
-        <p class="about-statement">SILLAGE собирает <b>независимых парфюмеров, ольфакторных художников и редкие дома</b> под одной крышей — чтобы показать аромат не как товар, а как язык.</p>
-        <p class="about-text">Пять дней лекций, мастер-классов и закрытых показов. Гости проходят сквозь сырьевую комнату, где можно вдохнуть чистые материалы — от калабрийского бергамота до камбоджийского уда, — а затем оказываются в инсталляциях, выстроенных вокруг одного аккорда.</p>
+        <span class="eyebrow"><span class="t-ru">О выставке</span><span class="t-en">About</span></span>
+        <h2><span class="t-ru">Запах как форма искусства</span><span class="t-en">Scent as an art form</span></h2>
+        <p class="about-statement t-ru">SILLAGE собирает <b>независимых парфюмеров, ольфакторных художников и редкие дома</b> под одной крышей — чтобы показать аромат не как товар, а как язык.</p>
+        <p class="about-statement t-en">SILLAGE gathers <b>independent perfumers, olfactory artists and rare houses</b> under one roof — to show fragrance not as a product, but as a language.</p>
+        <p class="about-text t-ru">Пять дней лекций, мастер-классов и закрытых показов. Гости проходят сквозь сырьевую комнату, где можно вдохнуть чистые материалы — от калабрийского бергамота до камбоджийского уда, — а затем оказываются в инсталляциях, выстроенных вокруг одного аккорда.</p>
+        <p class="about-text t-en">Five days of talks, masterclasses and private shows. Guests pass through a raw-materials room where they can inhale pure ingredients — from Calabrian bergamot to Cambodian oud — and then step into installations built around a single accord.</p>
       </div>
     </div>
     <div class="stats-band reveal" data-i="2">
-      <div class="stat"><div class="num" data-count="48">0</div><div class="lbl">Парфюмерных домов</div></div>
-      <div class="stat"><div class="num" data-count="120">0</div><div class="lbl">Редких материалов</div></div>
-      <div class="stat"><div class="num" data-count="32">0</div><div class="lbl">Лекций и показов</div></div>
-      <div class="stat"><div class="num" data-count="5">0</div><div class="lbl">Дней программы</div></div>
+      <div class="stat"><div class="num" data-count="48">0</div><div class="lbl"><span class="t-ru">Парфюмерных домов</span><span class="t-en">Perfume houses</span></div></div>
+      <div class="stat"><div class="num" data-count="120">0</div><div class="lbl"><span class="t-ru">Редких материалов</span><span class="t-en">Rare materials</span></div></div>
+      <div class="stat"><div class="num" data-count="32">0</div><div class="lbl"><span class="t-ru">Лекций и показов</span><span class="t-en">Talks &amp; shows</span></div></div>
+      <div class="stat"><div class="num" data-count="5">0</div><div class="lbl"><span class="t-ru">Дней программы</span><span class="t-en">Days</span></div></div>
     </div>
   </div>
 </section>
@@ -444,27 +542,27 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
 <!-- PYRAMID -->
 <section id="notes">
   <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow">Архитектура аромата</span>
-      <h2>Как раскрывается духи</h2>
-      <p>Любой аромат — это история во времени. Выберите слой пирамиды, чтобы увидеть, какие ноты звучат на каждом этапе.</p>
+    <div class="section-head reveal"><span class="eyebrow"><span class="t-ru">Архитектура аромата</span><span class="t-en">Architecture of scent</span></span>
+      <h2><span class="t-ru">Как раскрывается духи</span><span class="t-en">How a perfume unfolds</span></h2>
+      <p><span class="t-ru">Любой аромат — это история во времени. Выберите слой пирамиды, чтобы увидеть, какие ноты звучат на каждом этапе.</span><span class="t-en">Every fragrance is a story in time. Pick a layer of the pyramid to see which notes sound at each stage.</span></p>
     </div>
     <div class="pyramid-wrap">
       <div class="pyramid reveal">
         <div class="tier active" data-t="top">
-          <div><div class="t-name">Верхние ноты</div><div class="t-sub">Top</div></div>
+          <div><div class="t-name"><span class="t-ru">Верхние ноты</span><span class="t-en">Top notes</span></div><div class="t-sub">Top</div></div>
         </div>
         <div class="tier" data-t="heart">
-          <div><div class="t-name">Ноты сердца</div><div class="t-sub">Heart</div></div>
+          <div><div class="t-name"><span class="t-ru">Ноты сердца</span><span class="t-en">Heart notes</span></div><div class="t-sub">Heart</div></div>
         </div>
         <div class="tier" data-t="base">
-          <div><div class="t-name">Базовые ноты</div><div class="t-sub">Base</div></div>
+          <div><div class="t-name"><span class="t-ru">Базовые ноты</span><span class="t-en">Base notes</span></div><div class="t-sub">Base</div></div>
         </div>
       </div>
       <div class="tier-detail reveal" data-i="1">
-        <span class="eyebrow" id="dTag">Первое впечатление</span>
-        <div class="d-name" id="dName">Верхние ноты</div>
-        <div class="d-time" id="dTime">Звучат 5–15 минут</div>
-        <p class="d-desc" id="dDesc">Лёгкие летучие молекулы, которые встречают вас первыми. Свежие, цитрусовые и искристые — они задают настроение, но быстро уступают место сердцу.</p>
+        <span class="eyebrow" id="dTag"></span>
+        <div class="d-name" id="dName"></div>
+        <div class="d-time" id="dTime"></div>
+        <p class="d-desc" id="dDesc"></p>
         <div class="chips" id="dChips"></div>
       </div>
     </div>
@@ -474,19 +572,74 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
 <!-- HOUSES -->
 <section id="houses">
   <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow">Участники</span>
-      <h2>Дома и парфюмеры</h2>
-      <p>48 независимых марок со всего мира. Ниже — несколько имён, открывающих программу этого года.</p>
+    <div class="section-head reveal"><span class="eyebrow"><span class="t-ru">Участники</span><span class="t-en">Houses</span></span>
+      <h2><span class="t-ru">Дома и парфюмеры</span><span class="t-en">Houses &amp; perfumers</span></h2>
+      <p><span class="t-ru">48 независимых марок со всего мира. Ниже — несколько имён, открывающих программу этого года.</span><span class="t-en">48 independent brands from around the world. Below — a few names opening this year's programme.</span></p>
     </div>
     <div class="houses">
-      <div class="house reveal"><div class="no">01</div><div><div class="nm">Maison Orféo</div><div class="meta">Грас, Франция</div></div><div class="accord">Ирис · Замша</div></div>
-      <div class="house reveal" data-i="1"><div class="no">02</div><div><div class="nm">Atelier Kurō</div><div class="meta">Киото, Япония</div></div><div class="accord">Хиноки · Дым</div></div>
-      <div class="house reveal"><div class="no">03</div><div><div class="nm">Solenne</div><div class="meta">Флоренция, Италия</div></div><div class="accord">Нероли · Воск</div></div>
-      <div class="house reveal" data-i="1"><div class="no">04</div><div><div class="nm">Noctua</div><div class="meta">Лондон, Англия</div></div><div class="accord">Уд · Чернослив</div></div>
-      <div class="house reveal"><div class="no">05</div><div><div class="nm">Ambra Severa</div><div class="meta">Болонья, Италия</div></div><div class="accord">Амбра · Ладан</div></div>
-      <div class="house reveal" data-i="1"><div class="no">06</div><div><div class="nm">Veil &amp; Vetiver</div><div class="meta">Портленд, США</div></div><div class="accord">Ветивер · Соль</div></div>
-      <div class="house reveal"><div class="no">07</div><div><div class="nm">Зов</div><div class="meta">Санкт-Петербург, Россия</div></div><div class="accord">Берёза · Хвоя</div></div>
-      <div class="house reveal" data-i="1"><div class="no">08</div><div><div class="nm">Désert Neuf</div><div class="meta">Марракеш, Марокко</div></div><div class="accord">Шафран · Роза</div></div>
+      <div class="house reveal"><div class="no">01</div><div><div class="nm">Maison Orféo</div><div class="meta"><span class="t-ru">Грас, Франция</span><span class="t-en">Grasse, France</span></div></div><div class="accord"><span class="t-ru">Ирис · Замша</span><span class="t-en">Iris · Suede</span></div></div>
+      <div class="house reveal" data-i="1"><div class="no">02</div><div><div class="nm">Atelier Kurō</div><div class="meta"><span class="t-ru">Киото, Япония</span><span class="t-en">Kyoto, Japan</span></div></div><div class="accord"><span class="t-ru">Хиноки · Дым</span><span class="t-en">Hinoki · Smoke</span></div></div>
+      <div class="house reveal"><div class="no">03</div><div><div class="nm">Solenne</div><div class="meta"><span class="t-ru">Флоренция, Италия</span><span class="t-en">Florence, Italy</span></div></div><div class="accord"><span class="t-ru">Нероли · Воск</span><span class="t-en">Neroli · Wax</span></div></div>
+      <div class="house reveal" data-i="1"><div class="no">04</div><div><div class="nm">Noctua</div><div class="meta"><span class="t-ru">Лондон, Англия</span><span class="t-en">London, England</span></div></div><div class="accord"><span class="t-ru">Уд · Чернослив</span><span class="t-en">Oud · Plum</span></div></div>
+      <div class="house reveal"><div class="no">05</div><div><div class="nm">Ambra Severa</div><div class="meta"><span class="t-ru">Болонья, Италия</span><span class="t-en">Bologna, Italy</span></div></div><div class="accord"><span class="t-ru">Амбра · Ладан</span><span class="t-en">Amber · Incense</span></div></div>
+      <div class="house reveal" data-i="1"><div class="no">06</div><div><div class="nm">Veil &amp; Vetiver</div><div class="meta"><span class="t-ru">Портленд, США</span><span class="t-en">Portland, USA</span></div></div><div class="accord"><span class="t-ru">Ветивер · Соль</span><span class="t-en">Vetiver · Salt</span></div></div>
+      <div class="house reveal"><div class="no">07</div><div><div class="nm">Зов</div><div class="meta"><span class="t-ru">Санкт-Петербург, Россия</span><span class="t-en">St. Petersburg, Russia</span></div></div><div class="accord"><span class="t-ru">Берёза · Хвоя</span><span class="t-en">Birch · Pine</span></div></div>
+      <div class="house reveal" data-i="1"><div class="no">08</div><div><div class="nm">Désert Neuf</div><div class="meta"><span class="t-ru">Марракеш, Марокко</span><span class="t-en">Marrakesh, Morocco</span></div></div><div class="accord"><span class="t-ru">Шафран · Роза</span><span class="t-en">Saffron · Rose</span></div></div>
+    </div>
+    <div class="logos reveal" data-i="1">
+      <div class="lg">Maison Orféo</div><div class="lg">Atelier Kurō</div><div class="lg">Solenne</div><div class="lg">Noctua</div><div class="lg">Ambra Severa</div>
+      <div class="lg">Veil &amp; Vetiver</div><div class="lg">Зов</div><div class="lg">Désert Neuf</div><div class="lg">Lume Botanica</div><div class="lg">Северный Шёлк</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMME -->
+<section id="programme">
+  <div class="wrap">
+    <div class="section-head reveal"><span class="eyebrow"><span class="t-ru">Программа</span><span class="t-en">Programme</span></span>
+      <h2><span class="t-ru">Пять дней внутри аромата</span><span class="t-en">Five days inside scent</span></h2>
+      <p><span class="t-ru">Лекции, мастер-классы, показы и закрытые сессии. Выберите день.</span><span class="t-en">Talks, masterclasses, shows and private sessions. Pick a day.</span></p>
+    </div>
+    <div class="reveal">
+      <div class="prog-tabs" id="progTabs">
+        <button class="prog-tab active" data-day="1"><span class="d"><span class="t-ru">День 1</span><span class="t-en">Day 1</span></span><span class="dt"><span class="t-ru">13 нояб.</span><span class="t-en">Nov 13</span></span></button>
+        <button class="prog-tab" data-day="2"><span class="d"><span class="t-ru">День 2</span><span class="t-en">Day 2</span></span><span class="dt"><span class="t-ru">14 нояб.</span><span class="t-en">Nov 14</span></span></button>
+        <button class="prog-tab" data-day="3"><span class="d"><span class="t-ru">День 3</span><span class="t-en">Day 3</span></span><span class="dt"><span class="t-ru">15 нояб.</span><span class="t-en">Nov 15</span></span></button>
+        <button class="prog-tab" data-day="4"><span class="d"><span class="t-ru">День 4</span><span class="t-en">Day 4</span></span><span class="dt"><span class="t-ru">16 нояб.</span><span class="t-en">Nov 16</span></span></button>
+        <button class="prog-tab" data-day="5"><span class="d"><span class="t-ru">День 5</span><span class="t-en">Day 5</span></span><span class="dt"><span class="t-ru">17 нояб.</span><span class="t-en">Nov 17</span></span></button>
+      </div>
+      <div class="prog-day active" data-day="1">
+        <div class="sess"><div class="tm">12:00</div><div class="ti"><span class="t-ru">Открытие выставки</span><span class="t-en">Opening of the exhibition</span></div><div class="sp"><span class="t-ru">Кураторская группа</span><span class="t-en">Curatorial team</span></div></div>
+        <div class="sess"><div class="tm">15:00</div><div class="ti"><span class="t-ru">Лекция: язык нот</span><span class="t-en">Talk: the language of notes</span></div><div class="sp">Aude Bernard · Maison Orféo</div></div>
+        <div class="sess"><div class="tm">18:00</div><div class="ti"><span class="t-ru">Вечерний показ: Амбра</span><span class="t-en">Evening show: Amber</span></div><div class="sp">Ambra Severa</div></div>
+      </div>
+      <div class="prog-day" data-day="2">
+        <div class="sess"><div class="tm">11:00</div><div class="ti"><span class="t-ru">Мастер-класс: сборка аккорда</span><span class="t-en">Masterclass: building an accord</span></div><div class="sp">Matteo Sogliano · Solenne</div></div>
+        <div class="sess"><div class="tm">14:00</div><div class="ti"><span class="t-ru">Сырьевая комната: уд</span><span class="t-en">Raw room: oud</span></div><div class="sp">Atelier Kurō</div></div>
+        <div class="sess"><div class="tm">17:00</div><div class="ti"><span class="t-ru">Дискуссия: что такое нишевость</span><span class="t-en">Panel: what is niche</span></div><div class="sp">Irina Voronova</div></div>
+      </div>
+      <div class="prog-day" data-day="3">
+        <div class="sess"><div class="tm">11:00</div><div class="ti"><span class="t-ru">Лекция: ольфакторная память</span><span class="t-en">Talk: olfactory memory</span></div><div class="sp">Hiroko Tanaka</div></div>
+        <div class="sess"><div class="tm">14:00</div><div class="ti"><span class="t-ru">Показ: роза и дым</span><span class="t-en">Show: rose &amp; smoke</span></div><div class="sp">Noctua</div></div>
+        <div class="sess"><div class="tm">17:00</div><div class="ti"><span class="t-ru">Закрытая сессия (VIP)</span><span class="t-en">Private session (VIP)</span></div><div class="sp"><span class="t-ru">Кураторы</span><span class="t-en">Curators</span></div></div>
+      </div>
+      <div class="prog-day" data-day="4">
+        <div class="sess"><div class="tm">11:00</div><div class="ti"><span class="t-ru">Мастер-класс: шлейф</span><span class="t-en">Masterclass: the sillage</span></div><div class="sp">Aude Bernard</div></div>
+        <div class="sess"><div class="tm">14:00</div><div class="ti"><span class="t-ru">Инсталляция «Мускус»</span><span class="t-en">Installation "Musk"</span></div><div class="sp">Veil &amp; Vetiver</div></div>
+        <div class="sess"><div class="tm">17:00</div><div class="ti"><span class="t-ru">Парфюмеры за барной стойкой</span><span class="t-en">Perfumers at the bar</span></div><div class="sp"><span class="t-ru">Все дома</span><span class="t-en">All houses</span></div></div>
+      </div>
+      <div class="prog-day" data-day="5">
+        <div class="sess"><div class="tm">12:00</div><div class="ti"><span class="t-ru">Финальный показ</span><span class="t-en">Final show</span></div><div class="sp"><span class="t-ru">Кураторская группа</span><span class="t-en">Curatorial team</span></div></div>
+        <div class="sess"><div class="tm">15:00</div><div class="ti"><span class="t-ru">Награды SILLAGE</span><span class="t-en">SILLAGE Awards</span></div><div class="sp"><span class="t-ru">Жюри</span><span class="t-en">Jury</span></div></div>
+        <div class="sess"><div class="tm">18:00</div><div class="ti"><span class="t-ru">Закрытие выставки</span><span class="t-en">Closing of the exhibition</span></div><div class="sp">—</div></div>
+      </div>
+    </div>
+
+    <div class="speakers">
+      <div class="spk reveal"><div class="ph"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/spk1/500/500'" alt="Aude Bernard" loading="lazy"></div><div class="nm">Aude Bernard</div><div class="ro"><span class="t-ru">Парфюмер, Maison Orféo</span><span class="t-en">Perfumer, Maison Orféo</span></div></div>
+      <div class="spk reveal" data-i="1"><div class="ph"><img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=600&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/spk2/500/500'" alt="Hiroko Tanaka" loading="lazy"></div><div class="nm">Hiroko Tanaka</div><div class="ro"><span class="t-ru">Основатель Atelier Kurō</span><span class="t-en">Founder, Atelier Kurō</span></div></div>
+      <div class="spk reveal" data-i="2"><div class="ph"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/spk3/500/500'" alt="Matteo Sogliano" loading="lazy"></div><div class="nm">Matteo Sogliano</div><div class="ro"><span class="t-ru">Парфюмер, Solenne</span><span class="t-en">Perfumer, Solenne</span></div></div>
+      <div class="spk reveal" data-i="3"><div class="ph"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=600&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/spk4/500/500'" alt="Irina Voronova" loading="lazy"></div><div class="nm">Irina Voronova</div><div class="ro"><span class="t-ru">Куратор выставки</span><span class="t-en">Exhibition curator</span></div></div>
     </div>
   </div>
 </section>
@@ -494,18 +647,69 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
 <!-- GALLERY -->
 <section id="gallery">
   <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow">Инсталляции</span>
-      <h2>Пространства запаха</h2>
-      <p>Каждый зал построен вокруг одного аккорда — свет, материал и температура воздуха работают на одну ноту.</p>
+    <div class="section-head reveal"><span class="eyebrow"><span class="t-ru">Инсталляции</span><span class="t-en">Installations</span></span>
+      <h2><span class="t-ru">Пространства запаха</span><span class="t-en">Spaces of scent</span></h2>
+      <p><span class="t-ru">Каждый зал построен вокруг одного аккорда — свет, материал и температура воздуха работают на одну ноту.</span><span class="t-en">Each hall is built around a single accord — light, material and air temperature all serve one note.</span></p>
     </div>
     <div class="gallery">
-      <div class="gItem big reveal"><img src="https://images.unsplash.com/photo-1764061148216-f786bcc4b353?q=80&w=1300&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-amber/900/900'" alt="Инсталляция «Амбровый зал»" loading="lazy"><span class="cap">Зал I · Амбра</span></div>
-      <div class="gItem reveal" data-i="1"><img src="https://images.unsplash.com/photo-1559563362-c667ba5f5480?q=80&w=900&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-rose/500/400'" alt="Инсталляция «Роза»" loading="lazy"><span class="cap">Роза</span></div>
-      <div class="gItem tall reveal" data-i="2"><img src="https://images.unsplash.com/photo-1628709353367-35f0bb07413d?q=80&w=900&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-oud/500/800'" alt="Инсталляция «Уд»" loading="lazy"><span class="cap">Уд</span></div>
-      <div class="gItem reveal" data-i="3"><img src="https://images.unsplash.com/photo-1580052614034-c55d20bfee3b?q=80&w=900&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-citrus/500/400'" alt="Инсталляция «Цитрус»" loading="lazy"><span class="cap">Цитрус</span></div>
-      <div class="gItem reveal"><img src="https://images.unsplash.com/photo-1540163502599-a3284e17072d?q=80&w=900&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-iris/500/400'" alt="Инсталляция «Ирис»" loading="lazy"><span class="cap">Ирис</span></div>
-      <div class="gItem tall reveal" data-i="1"><img src="https://images.unsplash.com/photo-1627769792188-d3f9f59833e5?q=80&w=900&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-smoke/500/800'" alt="Инсталляция «Дым»" loading="lazy"><span class="cap">Дым</span></div>
-      <div class="gItem reveal" data-i="2"><img src="https://images.unsplash.com/photo-1712587874602-d4afe7f08624?q=80&w=900&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-musk/500/400'" alt="Инсталляция «Мускус»" loading="lazy"><span class="cap">Мускус</span></div>
+      <div class="gItem big reveal"><img src="https://images.unsplash.com/photo-1764061148216-f786bcc4b353?q=80&w=1300&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-amber/900/900'" alt="Amber hall" loading="lazy"><span class="cap"><span class="t-ru">Зал I · Амбра</span><span class="t-en">Hall I · Amber</span></span></div>
+      <div class="gItem reveal" data-i="1"><img src="https://images.unsplash.com/photo-1559563362-c667ba5f5480?q=80&w=900&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-rose/500/400'" alt="Rose" loading="lazy"><span class="cap"><span class="t-ru">Роза</span><span class="t-en">Rose</span></span></div>
+      <div class="gItem tall reveal" data-i="2"><img src="https://images.unsplash.com/photo-1628709353367-35f0bb07413d?q=80&w=900&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-oud/500/800'" alt="Oud" loading="lazy"><span class="cap"><span class="t-ru">Уд</span><span class="t-en">Oud</span></span></div>
+      <div class="gItem reveal" data-i="3"><img src="https://images.unsplash.com/photo-1580052614034-c55d20bfee3b?q=80&w=900&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-citrus/500/400'" alt="Citrus" loading="lazy"><span class="cap"><span class="t-ru">Цитрус</span><span class="t-en">Citrus</span></span></div>
+      <div class="gItem reveal"><img src="https://images.unsplash.com/photo-1540163502599-a3284e17072d?q=80&w=900&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-iris/500/400'" alt="Iris" loading="lazy"><span class="cap"><span class="t-ru">Ирис</span><span class="t-en">Iris</span></span></div>
+      <div class="gItem tall reveal" data-i="1"><img src="https://images.unsplash.com/photo-1627769792188-d3f9f59833e5?q=80&w=900&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-smoke/500/800'" alt="Smoke" loading="lazy"><span class="cap"><span class="t-ru">Дым</span><span class="t-en">Smoke</span></span></div>
+      <div class="gItem reveal" data-i="2"><img src="https://images.unsplash.com/photo-1712587874602-d4afe7f08624?q=80&w=900&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-musk/500/400'" alt="Musk" loading="lazy"><span class="cap"><span class="t-ru">Мускус</span><span class="t-en">Musk</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICES / PRESS -->
+<section id="voices">
+  <div class="wrap">
+    <div class="section-head reveal"><span class="eyebrow"><span class="t-ru">Отзывы</span><span class="t-en">Voices</span></span>
+      <h2><span class="t-ru">О нас говорят</span><span class="t-en">What they say</span></h2>
+    </div>
+    <div class="voices">
+      <div class="voice reveal">
+        <div class="q"><span class="t-ru">«Лучшее событие года для тех, кто дышит ароматом, а не просто носит его.»</span><span class="t-en">"The best event of the year for those who breathe scent, not just wear it."</span></div>
+        <div class="by"><div class="av"><img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=200&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/voice1/120/120'" alt="" loading="lazy"></div><div><div class="nm">Nina Koltsova</div><div class="ro"><span class="t-ru">Парфюмерный критик</span><span class="t-en">Fragrance critic</span></div></div></div>
+      </div>
+      <div class="voice reveal" data-i="1">
+        <div class="q"><span class="t-ru">«Сырьевая комната перевернула моё понимание нишевой парфюмерии.»</span><span class="t-en">"The raw-materials room changed how I see niche perfumery."</span></div>
+        <div class="by"><div class="av"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/voice2/120/120'" alt="" loading="lazy"></div><div><div class="nm">Luca Zanetti</div><div class="ro"><span class="t-ru">Обозреватель</span><span class="t-en">Columnist</span></div></div></div>
+      </div>
+      <div class="voice reveal" data-i="2">
+        <div class="q"><span class="t-ru">«Инсталляции, в которых запах действительно становится пространством.»</span><span class="t-en">"Installations where scent truly becomes space."</span></div>
+        <div class="by"><div class="av"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/voice3/120/120'" alt="" loading="lazy"></div><div><div class="nm">Mei Lin</div><div class="ro"><span class="t-ru">Художница</span><span class="t-en">Artist</span></div></div></div>
+      </div>
+    </div>
+    <div class="press reveal" data-i="1">
+      <span class="lbl"><span class="t-ru">О нас писали</span><span class="t-en">Featured in</span></span>
+      <span class="pp">Nez</span><span class="pp">Fragrantica</span><span class="pp">RBC Style</span><span class="pp">The Blueprint</span><span class="pp">Posta</span><span class="pp">Esquire</span>
+    </div>
+  </div>
+</section>
+
+<!-- EXHIBITORS -->
+<section id="exhibitors">
+  <div class="wrap">
+    <div class="exhibit reveal">
+      <div>
+        <span class="eyebrow"><span class="t-ru">Участникам</span><span class="t-en">For brands</span></span>
+        <h2><span class="t-ru">Стать участником</span><span class="t-en">Become an exhibitor</span></h2>
+        <p style="color:var(--muted); max-width:46ch;"><span class="t-ru">Покажите свои ароматы аудитории, которая приходит за искусством, а не за скидками. Ограниченное число стендов — отбор по портфолио.</span><span class="t-en">Show your fragrances to an audience that comes for art, not discounts. A limited number of booths — selection by portfolio.</span></p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span class="t-ru">Стенд в Центральном Манеже на 5 дней</span><span class="t-en">A booth at Central Manege for 5 days</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span class="t-ru">Слот в программе показов и лекций</span><span class="t-en">A slot in the shows &amp; talks programme</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span class="t-ru">Профиль в каталоге и медиа-охват</span><span class="t-en">A catalogue profile and media reach</span></li>
+        </ul>
+        <a href="mailto:exhibitors@sillage.expo" class="btn btn-gold"><span class="t-ru">Запросить стенд</span><span class="t-en">Request a booth</span></a>
+      </div>
+      <div class="exhibit-stats">
+        <div class="s"><div class="n">20 000</div><div class="l"><span class="t-ru">м² площади</span><span class="t-en">m² of space</span></div></div>
+        <div class="s"><div class="n">12 000</div><div class="l"><span class="t-ru">ожидаемых гостей</span><span class="t-en">expected guests</span></div></div>
+        <div class="s"><div class="n">1 800</div><div class="l"><span class="t-ru">B2B-встреч</span><span class="t-en">B2B meetings</span></div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -513,45 +717,45 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
 <!-- TICKETS -->
 <section id="tickets">
   <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow">Билеты</span>
-      <h2>Выберите формат визита</h2>
-      <p>Все билеты включают доступ в сырьевую комнату и галерею инсталляций.</p>
+    <div class="section-head reveal"><span class="eyebrow"><span class="t-ru">Билеты</span><span class="t-en">Tickets</span></span>
+      <h2><span class="t-ru">Выберите формат визита</span><span class="t-en">Choose your format</span></h2>
+      <p><span class="t-ru">Все билеты включают доступ в сырьевую комнату и галерею инсталляций.</span><span class="t-en">All tickets include access to the raw-materials room and the installation gallery.</span></p>
     </div>
     <div class="tickets">
       <div class="ticket reveal">
-        <span class="tag">На один день</span>
-        <div class="tname">Дневной</div>
-        <div class="price">2 400 ₽ <small>/ день</small></div>
+        <span class="tag"><span class="t-ru">На один день</span><span class="t-en">Single day</span></span>
+        <div class="tname"><span class="t-ru">Дневной</span><span class="t-en">Day pass</span></div>
+        <div class="price">2 400 ₽ <small><span class="t-ru">/ день</span><span class="t-en">/ day</span></small></div>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>Доступ на один выбранный день</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>Сырьевая комната и инсталляции</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>Две открытые лекции</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span class="t-ru">Доступ на один выбранный день</span><span class="t-en">Access for one chosen day</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span class="t-ru">Сырьевая комната и инсталляции</span><span class="t-en">Raw-materials room and installations</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span class="t-ru">Две открытые лекции</span><span class="t-en">Two open talks</span></li>
         </ul>
-        <a href="#reg" class="btn btn-ghost">Выбрать</a>
+        <a href="#reg" class="btn btn-ghost"><span class="t-ru">Выбрать</span><span class="t-en">Choose</span></a>
       </div>
       <div class="ticket feat reveal" data-i="1">
-        <span class="tag">Рекомендуем</span>
-        <div class="tname">Полный доступ</div>
-        <div class="price">9 800 ₽ <small>/ 5 дней</small></div>
+        <span class="tag"><span class="t-ru">Рекомендуем</span><span class="t-en">Recommended</span></span>
+        <div class="tname"><span class="t-ru">Полный доступ</span><span class="t-en">Full access</span></div>
+        <div class="price">9 800 ₽ <small><span class="t-ru">/ 5 дней</span><span class="t-en">/ 5 days</span></small></div>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>Все пять дней программы</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>Все лекции и мастер-классы</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>Каталог выставки в подарок</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>Приоритетный вход без очереди</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span class="t-ru">Все пять дней программы</span><span class="t-en">All five days of the programme</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span class="t-ru">Все лекции и мастер-классы</span><span class="t-en">All talks and masterclasses</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span class="t-ru">Каталог выставки в подарок</span><span class="t-en">Exhibition catalogue as a gift</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span class="t-ru">Приоритетный вход без очереди</span><span class="t-en">Priority entry, no queue</span></li>
         </ul>
-        <a href="#reg" class="btn btn-gold">Выбрать</a>
+        <a href="#reg" class="btn btn-gold"><span class="t-ru">Выбрать</span><span class="t-en">Choose</span></a>
       </div>
       <div class="ticket reveal" data-i="2">
-        <span class="tag">Закрытый формат</span>
+        <span class="tag"><span class="t-ru">Закрытый формат</span><span class="t-en">Private format</span></span>
         <div class="tname">VIP · Atelier</div>
-        <div class="price">24 000 ₽ <small>/ 5 дней</small></div>
+        <div class="price">24 000 ₽ <small><span class="t-ru">/ 5 дней</span><span class="t-en">/ 5 days</span></small></div>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>Всё из «Полного доступа»</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>Закрытые показы с парфюмерами</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>Персональная ольфакторная сессия</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>Лаунж и приветственный extrait</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span class="t-ru">Всё из «Полного доступа»</span><span class="t-en">Everything in "Full access"</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span class="t-ru">Закрытые показы с парфюмерами</span><span class="t-en">Private shows with the perfumers</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span class="t-ru">Персональная ольфакторная сессия</span><span class="t-en">A personal olfactory session</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span class="t-ru">Лаунж и приветственный extrait</span><span class="t-en">Lounge and a welcome extrait</span></li>
         </ul>
-        <a href="#reg" class="btn btn-ghost">Выбрать</a>
+        <a href="#reg" class="btn btn-ghost"><span class="t-ru">Выбрать</span><span class="t-en">Choose</span></a>
       </div>
     </div>
   </div>
@@ -562,14 +766,14 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
   <div class="wrap">
     <div class="reg reveal">
       <div>
-        <span class="eyebrow">Регистрация</span>
-        <h2 style="font-size:clamp(1.9rem,3.5vw,2.8rem); margin:.4em 0 .4em;">Забронируйте место</h2>
-        <p style="color:var(--muted); max-width:40ch;">Оставьте данные — мы пришлём электронный билет и программу за неделю до открытия. Количество мест на закрытые показы ограничено.</p>
+        <span class="eyebrow"><span class="t-ru">Регистрация</span><span class="t-en">Registration</span></span>
+        <h2><span class="t-ru">Забронируйте место</span><span class="t-en">Reserve your place</span></h2>
+        <p style="color:var(--muted); max-width:40ch;"><span class="t-ru">Оставьте данные — мы пришлём электронный билет и программу за неделю до открытия. Количество мест на закрытые показы ограничено.</span><span class="t-en">Leave your details — we'll send an e-ticket and the programme a week before opening. Seats for private shows are limited.</span></p>
       </div>
       <form class="reg-form" id="regForm" novalidate>
         <div class="row-2">
           <div class="field">
-            <label for="fn">Имя</label>
+            <label for="fn"><span class="t-ru">Имя</span><span class="t-en">Name</span></label>
             <input type="text" id="fn" name="fn" placeholder="Анна" autocomplete="given-name">
             <span class="err" data-for="fn"></span>
           </div>
@@ -580,27 +784,44 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
           </div>
         </div>
         <div class="field">
-          <label id="tkLabel">Тип билета</label>
+          <label id="tkLabel"><span class="t-ru">Тип билета</span><span class="t-en">Ticket type</span></label>
           <div class="cselect" id="tkSelect">
             <button type="button" class="cselect-trigger" id="tkTrigger" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="tkLabel">
-              <span class="cselect-value placeholder">Выберите формат</span>
+              <span class="cselect-value placeholder"></span>
               <svg class="cselect-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 9l6 6 6-6"/></svg>
             </button>
             <ul class="cselect-list" id="tkList" role="listbox">
-              <li role="option" data-val="Дневной — 2 400 ₽">Дневной — 2 400 ₽</li>
-              <li role="option" data-val="Полный доступ — 9 800 ₽">Полный доступ — 9 800 ₽</li>
-              <li role="option" data-val="VIP · Atelier — 24 000 ₽">VIP · Atelier — 24 000 ₽</li>
+              <li role="option" data-ru="Дневной — 2 400 ₽" data-en="Day pass — ₽2,400"></li>
+              <li role="option" data-ru="Полный доступ — 9 800 ₽" data-en="Full access — ₽9,800"></li>
+              <li role="option" data-ru="VIP · Atelier — 24 000 ₽" data-en="VIP · Atelier — ₽24,000"></li>
             </ul>
           </div>
           <input type="hidden" id="tk" name="tk" value="">
           <span class="err" data-for="tk"></span>
         </div>
-        <button type="submit" class="btn btn-gold" style="justify-content:center;">Зарегистрироваться</button>
+        <button type="submit" class="btn btn-gold" style="justify-content:center;"><span class="t-ru">Зарегистрироваться</span><span class="t-en">Register</span></button>
         <div class="reg-ok" id="regOk">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
-          Спасибо! Билет придёт на вашу почту.
+          <span class="t-ru">Спасибо! Билет придёт на вашу почту.</span><span class="t-en">Thank you! Your ticket will arrive by e-mail.</span>
         </div>
       </form>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section id="social">
+  <div class="wrap">
+    <div class="section-head reveal"><span class="eyebrow">@sillage.expo</span>
+      <h2><span class="t-ru">Следите за шлейфом</span><span class="t-en">Follow the scent</span></h2>
+    </div>
+    <div class="ig reveal">
+      <a href="#" aria-label="Instagram"><img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=500&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/ig1/400/400'" alt="" loading="lazy"></a>
+      <a href="#" aria-label="Instagram"><img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=500&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/ig2/400/400'" alt="" loading="lazy"></a>
+      <a href="#" aria-label="Instagram"><img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?q=80&w=500&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/ig3/400/400'" alt="" loading="lazy"></a>
+      <a href="#" aria-label="Instagram"><img src="https://images.unsplash.com/photo-1628709353367-35f0bb07413d?q=80&w=500&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/ig4/400/400'" alt="" loading="lazy"></a>
+      <a href="#" aria-label="Instagram"><img src="https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?q=80&w=500&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/ig5/400/400'" alt="" loading="lazy"></a>
+      <a href="#" aria-label="Instagram"><img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=500&auto=format&fit=crop&sat=-50" onerror="this.onerror=null;this.src='https://picsum.photos/seed/ig6/400/400'" alt="" loading="lazy"></a>
     </div>
   </div>
 </section>
@@ -611,41 +832,48 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
     <div class="foot-grid">
       <div class="foot-brand">
         <a href="#" class="brand">SILL<span>A</span>GE</a>
-        <p>Международная выставка нишевой парфюмерии. Москва, Центральный Манеж, 13–17 ноября 2026.</p>
+        <p><span class="t-ru">Международная выставка нишевой парфюмерии. Москва, Центральный Манеж, 13–17 ноября 2026.</span><span class="t-en">International niche perfumery exhibition. Moscow, Central Manege, November 13–17, 2026.</span></p>
       </div>
       <div class="foot-col">
-        <h4>Разделы</h4>
-        <a href="#about">О выставке</a>
-        <a href="#notes">Архитектура аромата</a>
-        <a href="#houses">Участники</a>
-        <a href="#tickets">Билеты</a>
+        <h4><span class="t-ru">Разделы</span><span class="t-en">Sections</span></h4>
+        <a href="#about"><span class="t-ru">О выставке</span><span class="t-en">About</span></a>
+        <a href="#programme"><span class="t-ru">Программа</span><span class="t-en">Programme</span></a>
+        <a href="#houses"><span class="t-ru">Участники</span><span class="t-en">Houses</span></a>
+        <a href="#tickets"><span class="t-ru">Билеты</span><span class="t-en">Tickets</span></a>
       </div>
       <div class="foot-col">
-        <h4>Контакты</h4>
+        <h4><span class="t-ru">Контакты</span><span class="t-en">Contacts</span></h4>
         <a href="mailto:hello@sillage.expo">hello@sillage.expo</a>
         <a href="tel:+74951234567">+7 (495) 123-45-67</a>
-        <a href="#">Москва, Манежная пл., 1</a>
+        <a href="#"><span class="t-ru">Москва, Манежная пл., 1</span><span class="t-en">Moscow, Manezhnaya Sq. 1</span></a>
       </div>
       <div class="foot-col">
-        <h4>Соцсети</h4>
+        <h4><span class="t-ru">Соцсети</span><span class="t-en">Social</span></h4>
         <a href="#">Telegram</a>
         <a href="#">Instagram</a>
         <a href="#">VK</a>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 SILLAGE Exposition. Все права защищены.</span>
-      <span>Сделано как макет для портфолио</span>
+      <span>© 2026 SILLAGE Exposition. <span class="t-ru">Все права защищены.</span><span class="t-en">All rights reserved.</span></span>
+      <span><span class="t-ru">Сделано как макет для портфолио</span><span class="t-en">Made as a portfolio demo</span></span>
     </div>
   </div>
 </footer>
 
 <script>
-/* header scroll */
+/* ===== язык RU/EN ===== */
+const PH = { ru:{fn:'Анна', em:'anna@mail.ru', sel:'Выберите формат'},
+             en:{fn:'Anna', em:'anna@mail.ru', sel:'Choose format'} };
+const FORM_ERR = { ru:{fn:'Введите имя', em:'Введите корректный e-mail', tk:'Выберите тип билета'},
+                   en:{fn:'Enter your name', em:'Enter a valid e-mail', tk:'Choose a ticket type'} };
+let LANG = localStorage.getItem('sillage-lang') || 'ru';
+
+/* ===== header scroll ===== */
 const header = document.getElementById('header');
 addEventListener('scroll', ()=> header.classList.toggle('scrolled', scrollY>40));
 
-/* hero: распыление парфюма — облако с аддитивным свечением (canvas) */
+/* ===== hero: распыление парфюма — облако с аддитивным свечением (canvas) ===== */
 const stage = document.getElementById('stage');
 const hero = document.getElementById('top');
 const canvas = document.getElementById('sprayCanvas');
@@ -654,7 +882,6 @@ const sctx = canvas.getContext('2d');
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const DPR = Math.min(devicePixelRatio, 1.25);   // холст спрея в пониженном разрешении — мягкое свечение этого не выдаёт
 
-/* мягкий спрайт частицы (радиальное свечение) — рисуем один раз */
 const spr = document.createElement('canvas'); spr.width = spr.height = 32;
 const spx = spr.getContext('2d');
 const grd = spx.createRadialGradient(16,16,0,16,16,16);
@@ -666,7 +893,7 @@ spx.fillStyle = grd; spx.beginPath(); spx.arc(16,16,16,0,Math.PI*2); spx.fill();
 let particles = [], rafId = null;
 
 function sizeSpray(){
-  const w = document.documentElement.clientWidth;        // ширина окна (без скроллбара)
+  const w = document.documentElement.clientWidth;
   const h = hero.getBoundingClientRect().height;
   canvas.width = Math.round(w*DPR); canvas.height = Math.round(h*DPR);
   canvas.style.width = w+'px'; canvas.style.height = h+'px';
@@ -677,12 +904,12 @@ function drawSpray(){
   sctx.setTransform(1,0,0,1,0,0);
   sctx.clearRect(0,0,canvas.width,canvas.height);
   sctx.setTransform(DPR,0,0,DPR,0,0);
-  sctx.globalCompositeOperation = 'lighter';   // аддитивное свечение — подсвеченная дымка
+  sctx.globalCompositeOperation = 'lighter';
   let alive = 0;
   for(const p of particles){
     if(p.life<=0) continue;
     alive++;
-    p.vx*=0.982; p.vy*=0.982; p.vy+=p.grav;    // трение воздуха + оседание
+    p.vx*=0.982; p.vy*=0.982; p.vy+=p.grav;
     p.x+=p.vx; p.y+=p.vy; p.r+=p.grow; p.life-=p.decay;
     const d = p.r*2;
     sctx.globalAlpha = Math.max(p.life,0)*p.alpha;
@@ -695,10 +922,10 @@ function drawSpray(){
 
 function emitSpray(){
   const cr = canvas.getBoundingClientRect(), sr = stage.getBoundingClientRect();
-  const ox = (sr.left - cr.left) + sr.width*0.34;   // сопло слева сверху
+  const ox = (sr.left - cr.left) + sr.width*0.34;
   const oy = (sr.top  - cr.top ) + sr.height*0.105;
   const SPREAD = 0.5;
-  for(let i=0;i<720;i++){                             // мелкая морось
+  for(let i=0;i<720;i++){
     const a = Math.PI - 0.1 + (Math.random()-0.5)*2*SPREAD;
     const sp = 3 + Math.random()*18;
     const edge = Math.abs(a-Math.PI)/SPREAD;
@@ -707,14 +934,14 @@ function emitSpray(){
       r:0.6+Math.random()*1.8+edge*0.8, grow:0.03+Math.random()*0.05,
       life:1, decay:0.0035+Math.random()*0.006, grav:0.014+Math.random()*0.03, alpha:0.14+Math.random()*0.14 });
   }
-  for(let i=0;i<60;i++){                              // редкие крупные капли — летят дальше всех
+  for(let i=0;i<60;i++){
     const a = Math.PI - 0.04 + (Math.random()-0.5)*2*(SPREAD*0.55);
     const sp = 8 + Math.random()*14;
     particles.push({ x:ox, y:oy, vx:Math.cos(a)*sp, vy:Math.sin(a)*sp*0.8,
       r:0.5+Math.random()*0.9, grow:0.008, life:1, decay:0.007+Math.random()*0.008,
       grav:0.06+Math.random()*0.06, alpha:0.5+Math.random()*0.3 });
   }
-  for(let i=0;i<14;i++){                              // мягкое облако-туман
+  for(let i=0;i<14;i++){
     const a = Math.PI + (Math.random()-0.5)*0.9;
     const sp = 1 + Math.random()*5;
     particles.push({ x:ox, y:oy, vx:Math.cos(a)*sp, vy:Math.sin(a)*sp*0.7,
@@ -733,34 +960,33 @@ let lastSprayTs = 0;
 function doSpray(){
   if(reduceMotion) return;
   const now = performance.now();
-  if(now - lastSprayTs < 700) return;     // не копим вспышки при частых кликах
-  if(particles.length > 1500) return;     // защита от перегруза
+  if(now - lastSprayTs < 700) return;
+  if(particles.length > 1500) return;
   lastSprayTs = now;
   pressCap(); emitSpray();
 }
-
-stage.addEventListener('click', doSpray);          // клик по флакону = пшик
+stage.addEventListener('click', doSpray);
 
 let sprayed = false;
 function onHeroScroll(){
   if(reduceMotion) return;
-  if(!sprayed && scrollY > 60){ sprayed = true; doSpray(); }   // первый скролл вниз — пшик
+  if(!sprayed && scrollY > 60){ sprayed = true; doSpray(); }
   else if(sprayed && scrollY <= 2){ sprayed = false; if(capEl) capEl.style.animation='none'; }
 }
 addEventListener('scroll', onHeroScroll, {passive:true});
 
-/* mobile menu */
+/* ===== mobile menu ===== */
 const nav = document.getElementById('nav'), menuBtn = document.getElementById('menuBtn');
 menuBtn.addEventListener('click', ()=> nav.classList.toggle('open'));
 nav.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> nav.classList.remove('open')));
 
-/* reveal on scroll */
+/* ===== reveal ===== */
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-},{ threshold:.16 });
+},{ threshold:.12 });
 document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
 
-/* count up */
+/* ===== count up ===== */
 const counted = new WeakSet();
 const cio = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
@@ -776,24 +1002,38 @@ const cio = new IntersectionObserver((entries)=>{
 },{ threshold:.6 });
 document.querySelectorAll('[data-count]').forEach(el=> cio.observe(el));
 
-/* olfactory pyramid */
+/* ===== olfactory pyramid (двуязычно) ===== */
 const TIERS = {
-  top:{ tag:'Первое впечатление', name:'Верхние ноты', time:'Звучат 5–15 минут',
-    desc:'Лёгкие летучие молекулы, которые встречают вас первыми. Свежие, цитрусовые и искристые — они задают настроение, но быстро уступают место сердцу.',
-    notes:['Бергамот','Розовый перец','Нероли','Мандарин','Кардамон'] },
-  heart:{ tag:'Душа аромата', name:'Ноты сердца', time:'Раскрываются 2–4 часа',
-    desc:'Сердце — характер духов. Здесь живут цветы и специи, ради которых аромат и создавался. Они звучат дольше всего и формируют его узнаваемость.',
-    notes:['Болгарская роза','Жасмин самбак','Ирис','Шафран','Османтус'] },
-  base:{ tag:'Шлейф', name:'Базовые ноты', time:'Держатся до суток',
-    desc:'Тяжёлые смолы, дерево и мускус. Они проявляются последними, закрепляют композицию на коже и остаются тем самым sillage — следом в воздухе.',
-    notes:['Уд','Сандал','Амбра','Ваниль','Пачули','Мускус'] }
+  top:{
+    ru:{ tag:'Первое впечатление', name:'Верхние ноты', time:'Звучат 5–15 минут',
+      desc:'Лёгкие летучие молекулы, которые встречают вас первыми. Свежие, цитрусовые и искристые — они задают настроение, но быстро уступают место сердцу.',
+      notes:['Бергамот','Розовый перец','Нероли','Мандарин','Кардамон'] },
+    en:{ tag:'First impression', name:'Top notes', time:'Last 5–15 minutes',
+      desc:'Light, volatile molecules that greet you first. Fresh, citrusy and sparkling — they set the mood, then quickly give way to the heart.',
+      notes:['Bergamot','Pink pepper','Neroli','Mandarin','Cardamom'] } },
+  heart:{
+    ru:{ tag:'Душа аромата', name:'Ноты сердца', time:'Раскрываются 2–4 часа',
+      desc:'Сердце — характер духов. Здесь живут цветы и специи, ради которых аромат и создавался. Они звучат дольше всего и формируют его узнаваемость.',
+      notes:['Болгарская роза','Жасмин самбак','Ирис','Шафран','Османтус'] },
+    en:{ tag:'The soul of a scent', name:'Heart notes', time:'Unfold over 2–4 hours',
+      desc:'The heart is the character of a perfume. Here live the flowers and spices it was built for. They sound the longest and shape its identity.',
+      notes:['Bulgarian rose','Jasmine sambac','Iris','Saffron','Osmanthus'] } },
+  base:{
+    ru:{ tag:'Шлейф', name:'Базовые ноты', time:'Держатся до суток',
+      desc:'Тяжёлые смолы, дерево и мускус. Они проявляются последними, закрепляют композицию на коже и остаются тем самым sillage — следом в воздухе.',
+      notes:['Уд','Сандал','Амбра','Ваниль','Пачули','Мускус'] },
+    en:{ tag:'The trail', name:'Base notes', time:'Linger up to a day',
+      desc:'Heavy resins, wood and musk. They appear last, fix the composition on the skin and remain as the sillage itself — a trail in the air.',
+      notes:['Oud','Sandalwood','Amber','Vanilla','Patchouli','Musk'] } }
 };
 const dTag=document.getElementById('dTag'), dName=document.getElementById('dName'),
       dTime=document.getElementById('dTime'), dDesc=document.getElementById('dDesc'),
       dChips=document.getElementById('dChips'), tiers=document.querySelectorAll('.tier');
+let activeTier='top';
 
 function setTier(key){
-  const t=TIERS[key];
+  activeTier=key;
+  const t=TIERS[key][LANG];
   tiers.forEach(el=> el.classList.toggle('active', el.dataset.t===key));
   dTag.textContent=t.tag; dName.textContent=t.name; dTime.textContent=t.time; dDesc.textContent=t.desc;
   dChips.innerHTML='';
@@ -806,17 +1046,26 @@ tiers.forEach(el=>{
   el.addEventListener('click', ()=> setTier(el.dataset.t));
   el.addEventListener('mouseenter', ()=> setTier(el.dataset.t));
 });
-setTier('top');
 
-/* кастомный селект */
+/* ===== programme tabs ===== */
+const progTabs=document.querySelectorAll('.prog-tab'), progDays=document.querySelectorAll('.prog-day');
+progTabs.forEach(tab=> tab.addEventListener('click', ()=>{
+  const d=tab.dataset.day;
+  progTabs.forEach(t=> t.classList.toggle('active', t===tab));
+  progDays.forEach(p=> p.classList.toggle('active', p.dataset.day===d));
+}));
+
+/* ===== кастомный селект ===== */
 const cs=document.getElementById('tkSelect'), csT=document.getElementById('tkTrigger'),
       csL=document.getElementById('tkList'), csV=csT.querySelector('.cselect-value'),
       tkInput=document.getElementById('tk');
+let activeLi=null;
 csT.addEventListener('click',(e)=>{ e.stopPropagation(); const o=cs.classList.toggle('open'); csT.setAttribute('aria-expanded',o); });
 csL.querySelectorAll('li').forEach(li=>{
   li.addEventListener('click',()=>{
-    csV.textContent=li.dataset.val; csV.classList.remove('placeholder');
-    tkInput.value=li.dataset.val;
+    activeLi=li;
+    csV.textContent=li.dataset[LANG]; csV.classList.remove('placeholder');
+    tkInput.value=li.dataset.en;   // язык-нейтральное значение для отправки
     csL.querySelectorAll('li').forEach(o=>o.classList.remove('active')); li.classList.add('active');
     cs.classList.remove('open'); csT.setAttribute('aria-expanded','false');
     const errEl=document.querySelector('[data-for="tk"]'); if(errEl) errEl.textContent='';
@@ -824,21 +1073,42 @@ csL.querySelectorAll('li').forEach(li=>{
 });
 document.addEventListener('click',(e)=>{ if(!cs.contains(e.target)){ cs.classList.remove('open'); csT.setAttribute('aria-expanded','false'); } });
 
-/* form validation */
+/* ===== form validation ===== */
 const form=document.getElementById('regForm'), ok=document.getElementById('regOk');
 function err(name,msg){ form.querySelector('[data-for="'+name+'"]').textContent=msg||''; }
 form.addEventListener('submit',(e)=>{
-  e.preventDefault(); let valid=true;
+  e.preventDefault(); let valid=true; const E=FORM_ERR[LANG];
   const fn=form.fn.value.trim(), em=form.em.value.trim(), tk=form.tk.value;
-  if(fn.length<2){ err('fn','Введите имя'); valid=false; } else err('fn');
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ err('em','Введите корректный e-mail'); valid=false; } else err('em');
-  if(!tk){ err('tk','Выберите тип билета'); valid=false; } else err('tk');
+  if(fn.length<2){ err('fn',E.fn); valid=false; } else err('fn');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ err('em',E.em); valid=false; } else err('em');
+  if(!tk){ err('tk',E.tk); valid=false; } else err('tk');
   if(valid){
     form.querySelector('button').style.display='none';
     ok.classList.add('show');
     form.reset();
   }
 });
+
+/* ===== применить язык ===== */
+function applyLang(l){
+  LANG=l;
+  document.documentElement.setAttribute('data-lang', l);
+  document.documentElement.setAttribute('lang', l);
+  localStorage.setItem('sillage-lang', l);
+  document.querySelectorAll('[data-setlang]').forEach(b=> b.classList.toggle('active', b.dataset.setlang===l));
+  // плейсхолдеры формы
+  const f=document.getElementById('fn'), e=document.getElementById('em');
+  if(f) f.placeholder=PH[l].fn; if(e) e.placeholder=PH[l].em;
+  // селект: лейблы опций + плейсхолдер/значение
+  csL.querySelectorAll('li').forEach(li=> li.textContent = li.dataset[l]);
+  if(activeLi){ csV.textContent=activeLi.dataset[l]; } else { csV.textContent=PH[l].sel; }
+  // пирамида заново на текущем языке
+  setTier(activeTier);
+}
+document.querySelectorAll('[data-setlang]').forEach(b=>{
+  b.addEventListener('click', ()=> applyLang(b.dataset.setlang));
+});
+applyLang(LANG);
 </script>
 </body>
 </html>
