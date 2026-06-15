@@ -106,7 +106,7 @@ body::after{
   color:var(--gold); font-weight:600; display:inline-block;
 }
 h1,h2,h3{ font-family:'Prata',serif; font-weight:400; line-height:1.08; letter-spacing:.005em; }
-section{ padding:clamp(96px,12.5vh,168px) 0; position:relative; }   /* больше воздуха */
+section{ padding:clamp(80px,11vh,150px) 0; position:relative; }
 .section-head{ max-width:680px; margin-bottom:clamp(40px,6vh,72px); }
 .section-head h2{ font-size:clamp(2.1rem,5vw,3.6rem); margin:.4em 0 .35em; }
 .section-head p{ color:var(--muted); font-size:1.05rem; max-width:56ch; }
@@ -246,9 +246,7 @@ nav.main a.nav-link:hover{ color:var(--text); } nav.main a.nav-link:hover::after
 .house .no{ font-family:'Prata',serif; color:var(--muted-2); font-size:.95rem; }
 .house .nm{ font-family:'Prata',serif; font-size:1.5rem; transition:color .35s var(--ease); }
 .house .meta{ font-size:.82rem; color:var(--muted); }
-.house .accord{ font-size:.8rem; color:var(--gold); letter-spacing:.04em; text-align:right;
-  opacity:0; transform:translateX(8px); transition:opacity .4s var(--ease), transform .4s var(--ease); }
-.house:hover .accord{ opacity:1; transform:none; }   /* аккорд проявляется при наведении */
+.house .accord{ font-size:.8rem; color:var(--gold); letter-spacing:.04em; text-align:right; }
 .house:hover .nm{ color:var(--gold-soft); }
 /* стена логотипов */
 .logos{ margin-top:clamp(44px,6vh,76px); display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--line-soft); border:1px solid var(--line-soft); }
@@ -391,23 +389,6 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
 .reveal.in{ opacity:1; transform:none; }
 .reveal[data-i]{ transition-delay:calc(var(--i)*90ms); }
 
-/* ---------- LIGHT / CRAFT (светлая секция для ритма) ---------- */
-.lightsec{ background:linear-gradient(180deg,#f1e9da 0%,#e8dfce 100%); color:#2a241c; }
-.lightsec .eyebrow{ color:#b07a3f; }
-.craft-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(40px,6vw,84px); align-items:center; }
-.craft-grid h2{ font-family:'Prata',serif; color:#211c15; font-size:clamp(1.9rem,4vw,3rem); line-height:1.12; margin:.3em 0 .55em; }
-.manifesto{ font-family:'Prata',serif; font-size:clamp(1.45rem,2.5vw,2.15rem); line-height:1.32; color:#2a241c; margin:0; }
-.manifesto b{ color:#a9712f; font-weight:400; }
-.craft-text > p{ color:#5e5446; max-width:48ch; margin:22px 0 0; }
-.credo{ display:flex; flex-direction:column; gap:13px; margin-top:26px; }
-.credo .c{ display:flex; gap:14px; align-items:baseline; color:#5e5446; font-size:.96rem; }
-.credo .c b{ font-family:'Prata',serif; color:#211c15; font-weight:400; font-size:1.05rem; min-width:104px; }
-.craft-img{ aspect-ratio:4/5; overflow:hidden; border:1px solid rgba(40,30,20,.14); }
-.craft-img img{ width:100%; height:100%; object-fit:cover; pointer-events:none; filter:sepia(.16) brightness(1.02) contrast(1.02); transition:transform 1.2s var(--ease); }
-.craft-img:hover img{ transform:scale(1.04); }
-.lightsec .btn-ghost{ color:#2a241c; border-color:rgba(40,30,20,.25); }
-.lightsec .btn-ghost:hover{ border-color:#a9712f; color:#a9712f; }
-
 /* ---------- RESPONSIVE ---------- */
 @media (max-width:900px){
   nav.main{ position:fixed; inset:0 0 0 auto; width:min(320px,82vw); flex-direction:column; justify-content:center;
@@ -419,9 +400,8 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
   .menu-toggle{ display:block; z-index:101; }
   .hero{ grid-template-columns:1fr; text-align:left; padding-top:120px; }
   .hero-right{ order:-1; min-height:42vh; }
-  .about-grid,.pyramid-wrap,.reg,.exhibit,.craft-grid{ grid-template-columns:1fr; }
+  .about-grid,.pyramid-wrap,.reg,.exhibit{ grid-template-columns:1fr; }
   .houses{ grid-template-columns:1fr; }
-  .house .accord{ opacity:1; transform:none; }   /* на тач-устройствах аккорд всегда виден */
   .tickets{ grid-template-columns:1fr; }
   .gallery{ grid-template-columns:1fr 1fr; grid-auto-rows:170px; }
   .gItem.big{ grid-column:span 2; grid-row:span 1; }
@@ -548,7 +528,6 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
         <p class="about-statement t-en">SILLAGE gathers <b>independent perfumers, olfactory artists and rare houses</b> under one roof — to show fragrance not as a product, but as a language.</p>
         <p class="about-text t-ru">Пять дней лекций, мастер-классов и закрытых показов. Гости проходят сквозь сырьевую комнату, где можно вдохнуть чистые материалы — от калабрийского бергамота до камбоджийского уда, — а затем оказываются в инсталляциях, выстроенных вокруг одного аккорда.</p>
         <p class="about-text t-en">Five days of talks, masterclasses and private shows. Guests pass through a raw-materials room where they can inhale pure ingredients — from Calabrian bergamot to Cambodian oud — and then step into installations built around a single accord.</p>
-        <a href="#programme" class="btn btn-ghost" style="margin-top:28px;"><span class="t-ru">Смотреть программу</span><span class="t-en">See the programme</span></a>
       </div>
     </div>
     <div class="stats-band reveal" data-i="2">
@@ -590,29 +569,6 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
   </div>
 </section>
 
-<!-- LIGHT / CRAFT -->
-<section id="craft" class="lightsec">
-  <div class="wrap">
-    <div class="craft-grid">
-      <div class="craft-text reveal">
-        <span class="eyebrow"><span class="t-ru">Манифест</span><span class="t-en">Manifesto</span></span>
-        <h2><span class="t-ru">Мы не продаём флаконы</span><span class="t-en">We don't sell bottles</span></h2>
-        <p class="manifesto"><span class="t-ru">Мы не продаём флаконы. Мы даём <b>время побыть наедине с запахом</b> — и на минуту вспомнить себя.</span><span class="t-en">We don't sell bottles. We give you <b>time alone with a scent</b> — and a minute to remember yourself.</span></p>
-        <p><span class="t-ru">Аромат живёт на коже, а не на полке. Поэтому вся выставка — про прикосновение: к материалу, к памяти, к человеку, который его собрал.</span><span class="t-en">A scent lives on skin, not on a shelf. So the whole exhibition is about touch — to the material, to memory, to the person who composed it.</span></p>
-        <div class="credo">
-          <div class="c"><b><span class="t-ru">Медленно</span><span class="t-en">Slowly</span></b><span><span class="t-ru">Ни одного аромата, собранного на потоке.</span><span class="t-en">Not a single fragrance made on a conveyor.</span></span></div>
-          <div class="c"><b><span class="t-ru">Вручную</span><span class="t-en">By hand</span></b><span><span class="t-ru">Каждый дом мацерирует и разливает сам.</span><span class="t-en">Every house macerates and bottles its own.</span></span></div>
-          <div class="c"><b><span class="t-ru">Честно</span><span class="t-en">Honestly</span></b><span><span class="t-ru">Состав и происхождение материалов — открыто.</span><span class="t-en">Composition and origin of materials — in the open.</span></span></div>
-        </div>
-        <a href="#houses" class="btn btn-ghost" style="margin-top:30px;"><span class="t-ru">Узнать дома</span><span class="t-en">Discover the houses</span></a>
-      </div>
-      <div class="craft-img reveal" data-i="1">
-        <img src="https://images.unsplash.com/photo-1659531412263-bf2b9e1abf6f?q=80&w=900&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sillage-skin/700/900'" alt="Scent on skin" loading="lazy">
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- HOUSES -->
 <section id="houses">
   <div class="wrap">
@@ -633,9 +589,6 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
     <div class="logos reveal" data-i="1">
       <div class="lg">Maison Orféo</div><div class="lg">Atelier Kurō</div><div class="lg">Solenne</div><div class="lg">Noctua</div><div class="lg">Ambra Severa</div>
       <div class="lg">Veil &amp; Vetiver</div><div class="lg">Зов</div><div class="lg">Désert Neuf</div><div class="lg">Lume Botanica</div><div class="lg">Северный Шёлк</div>
-    </div>
-    <div style="text-align:center; margin-top:clamp(38px,5vh,58px);">
-      <a href="#exhibitors" class="btn btn-ghost"><span class="t-ru">Стать участником</span><span class="t-en">Become an exhibitor</span></a>
     </div>
   </div>
 </section>
