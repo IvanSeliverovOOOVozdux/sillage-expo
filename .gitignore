@@ -9,3 +9,12 @@ desktop.ini
 
 # vercel
 .vercel
+
+# secrets — никогда не коммитить
+.env
+.env.*
+*.key
+*.pem
+*.p12
+secrets.json
+credentials.json
