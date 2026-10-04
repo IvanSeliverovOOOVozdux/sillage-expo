@@ -186,6 +186,25 @@ nav.main a.nav-link:hover{ color:var(--text); } nav.main a.nav-link:hover::after
   .hero-fx-pin{ position:absolute; height:100svh; min-height:640px; }
   .hero-fx img, .hero-fx video{ object-position:50% 0; }
 }
+/* ДЕСКТОП: «пшик» — закреплённая скролл-сцена. Hero прилипает к окну на время скролл-трека; скролл крутит кадры 4K-видео
+   (canvas), флакон стоит на месте. Кадр рисуется дважды: внизу целиком (фон + флакон), и ещё раз ПОВЕРХ текста через SVG-фильтр
+   «яркость → прозрачность» — дым и искры накрывают буквы дымкой, тёмный фон прозрачен. Потом hero отпускается и страница едет дальше. */
+.hero-track{ position:relative; }
+.hero-fx-top{ display:none; }
+@media (min-width:901px) and (prefers-reduced-motion:no-preference){
+  .hero-track{ height:calc(100vh + var(--spray-len,240vh)); }
+  .hero-track .hero{ position:sticky; top:0; height:100vh; height:100svh; min-height:0; box-sizing:border-box; }
+  .hero-fx-pin{ position:absolute; inset:0; width:100%; height:100%; background:none; }
+  .hero-fx-pin::after{ display:none; }
+  .hero-fx, .hero-fx-top{ -webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 180px),transparent); mask-image:linear-gradient(180deg,#000 calc(100% - 180px),transparent); }   /* низ растворяется в фон страницы — без шва со следующей секцией */
+  .hero-fx canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .hero-fx video{ display:none; }
+  .hero-fx-top{ display:block; position:absolute; top:0; bottom:0; left:50%; width:100vw; margin-left:-50vw; z-index:3; pointer-events:none; clip-path:inset(0); }
+  .hero-fx-top canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; filter:url(#sprayLuma); }
+  .hero h1{ text-shadow:0 0 calc(var(--spray,0) * 30px) rgba(201,163,90,calc(var(--spray,0) * .38)); }
+  .scroll-cue{ transition:opacity .5s ease; }
+  .hero.spraying .scroll-cue{ opacity:0; }
+}
 
 .scroll-cue{ position:absolute; bottom:34px; left:clamp(20px,4vw,56px); display:flex; align-items:center; gap:12px; color:var(--muted-2); font-size:.72rem; letter-spacing:.24em; text-transform:uppercase; }
 .scroll-cue .line{ width:46px; height:1px; background:var(--muted-2); position:relative; overflow:hidden; }
@@ -445,6 +464,8 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
 </header>
 
 <!-- HERO -->
+<div class="hero-track" id="heroTrack">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="sprayLuma" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0.8 0.8 0.3 0 -0.15"/></filter></svg>
 <section class="hero wrap" id="top">
   <div class="hero-fx" id="heroFx">
     <div class="hero-fx-pin">
@@ -452,6 +473,7 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
         <source media="(max-width:900px)" srcset="assets/spray-poster-mobile.jpg">
         <img src="assets/spray-poster-desktop.jpg" width="1920" height="1080" alt="Флакон S·A Extrait — золотой флакон духов Sillage" fetchpriority="high">
       </picture>
+      <canvas id="heroCanvas" aria-hidden="true"></canvas>
       <video id="sprayVideo" muted playsinline preload="auto" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
     </div>
   </div>
@@ -470,8 +492,10 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
     </div>
   </div>
   <div class="hero-right reveal" data-i="2"><div class="flacon-stage" id="stage"></div></div>
+  <div class="hero-fx-top" aria-hidden="true"><canvas id="heroCanvasTop"></canvas></div>
   <div class="scroll-cue"><span class="line"></span> <span class="t-ru">Листайте</span><span class="t-en">Scroll</span></div>
 </section>
+</div>
 
 <!-- ABOUT -->
 <section id="about">
@@ -848,13 +872,15 @@ const fx = document.getElementById('heroFx');
 const vid = document.getElementById('sprayVideo');
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const mqMobile = matchMedia('(max-width: 900px)');
+/* десктоп без reduced-motion: закреплённая скролл-сцена по кадрам (см. ниже); телефон — прежнее видео по триггеру */
+const sceneMq = matchMedia('(min-width: 901px) and (prefers-reduced-motion: no-preference)');
 
 /* два видео: широкое для десктопа, вертикальное для телефона */
 function pickSrc(){
   const src = mqMobile.matches ? 'assets/spray-mobile.mp4' : 'assets/spray-desktop.mp4';
   if(vid.dataset.src !== src){ vid.dataset.src = src; vid.src = src; vid.load(); }
 }
-if(!reduceMotion) pickSrc();
+if(!reduceMotion && !sceneMq.matches) pickSrc();
 mqMobile.addEventListener('change', () => { if(!playing && !reduceMotion){ fx.classList.remove('has-video'); pickSrc(); } });
 
 /* --- состояние: взведено только в самом верху --- */
@@ -869,7 +895,7 @@ function rearm(){
 }
 
 function playSpray(){
-  if(reduceMotion || playing) return;
+  if(reduceMotion || playing || sceneMq.matches) return;
   if(vid.error || !vid.src) return;
   if(vid.readyState < 3){ vid.addEventListener('canplay', playSpray, {once:true}); return; }   // видео ещё грузится — стартуем, как только готово
   playing = true;
@@ -913,6 +939,70 @@ addEventListener('scroll', () => {
   else if(armed && prevY <= 2 && y > prevY){ armed = false; playSpray(); }
   prevY = y;
 }, {passive:true});
+
+/* ===== hero (десктоп): скролл крутит кадры «пшика» ===== */
+const SPRAY_FRAMES = 121;                                   // assets/hero/f001..f121.webp (24 к/с из 4K-видео)
+const sprayFrame = i => 'assets/hero/f' + String(i + 1).padStart(3,'0') + '.webp';
+if(sceneMq.matches){
+  const track = document.getElementById('heroTrack');
+  const heroEl = document.getElementById('top');
+  const cvsBase = document.getElementById('heroCanvas'), cvsTop = document.getElementById('heroCanvasTop');
+  const ctxBase = cvsBase.getContext('2d', { alpha:false }), ctxTop = cvsTop.getContext('2d');
+  const frames = new Array(SPRAY_FRAMES);                   // Image по индексу; пока кадр не загружен — рисуем ближайший прошлый
+  let cw = 0, ch = 0, shown = -1, cur = 0, target = 0, raf = 0;
+
+  function sizeCanvas(){
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    cw = Math.min(Math.round(innerWidth * dpr), 2560); ch = Math.round(cw * innerHeight / innerWidth);
+    cvsBase.width = cvsTop.width = cw; cvsBase.height = cvsTop.height = ch; shown = -1; render();
+  }
+  function bestFrame(i){ for(let k = i; k >= 0; k--) if(frames[k] && frames[k].complete && frames[k].naturalWidth) return k; return -1; }
+  function render(){
+    const k = bestFrame(Math.round(cur));
+    if(k < 0 || k === shown) return;
+    const img = frames[k], s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
+    const dw = img.naturalWidth * s, dh = img.naturalHeight * s, dx = (cw - dw) * .72, dy = (ch - dh) * .5;   // cover, как у постера (object-position 72% 50%)
+    ctxBase.drawImage(img, dx, dy, dw, dh);
+    ctxTop.clearRect(0, 0, cw, ch); ctxTop.drawImage(img, dx, dy, dw, dh);
+    shown = k;
+  }
+  const ease = (a,b,x) => { x = Math.min(Math.max((x - a) / (b - a), 0), 1); return x * x * (3 - 2 * x); };
+  function progress(){
+    const r = track.getBoundingClientRect();
+    return Math.min(Math.max(-r.top / Math.max(r.height - innerHeight, 1), 0), 1);
+  }
+  function tick(){
+    cur += (target - cur) * .2;                              // сглаживание: колесо мыши шагает рывками, кадры — нет
+    if(Math.abs(target - cur) < .02) cur = target;
+    render();
+    raf = cur === target ? 0 : requestAnimationFrame(tick);
+  }
+  function onScroll(){
+    const p = progress();
+    target = p * (SPRAY_FRAMES - 1);
+    /* буквы «ловят» облако: свечение заголовка нарастает, когда пыль доходит до текста, и уходит к концу сцены */
+    heroEl.style.setProperty('--spray', (ease(.16, .5, p) * (1 - .75 * ease(.82, 1, p))).toFixed(3));
+    heroEl.classList.toggle('spraying', p > .01);
+    if(!raf) raf = requestAnimationFrame(tick);
+  }
+
+  /* загрузка кадров: по порядку (сначала нажатие), 6 параллельно */
+  let next = 0;
+  function pump(){
+    if(next >= SPRAY_FRAMES) return;
+    const i = next++, im = new Image();
+    im.decoding = 'async';
+    im.onload = im.onerror = () => { if(i === 0 || Math.abs(i - Math.round(cur)) <= 1) { shown = -1; render(); } pump(); };
+    im.src = sprayFrame(i);
+    frames[i] = im;
+  }
+  const start = () => { for(let k = 0; k < 6; k++) pump(); };
+  if(document.readyState === 'complete') start(); else addEventListener('load', start, {once:true});
+
+  sizeCanvas(); onScroll();
+  addEventListener('resize', () => { sizeCanvas(); onScroll(); });
+  addEventListener('scroll', onScroll, {passive:true});
+}
 
 /* ===== mobile menu ===== */
 const nav = document.getElementById('nav'), menuBtn = document.getElementById('menuBtn');
