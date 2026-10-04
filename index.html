@@ -189,11 +189,24 @@ nav.main a.nav-link:hover{ color:var(--text); } nav.main a.nav-link:hover::after
 /* ДЕСКТОП: «пшик» — 5-секундная анимация из 121 кадра 4K-видео (canvas). Кадр рисуется дважды: внизу целиком (фон + флакон)
    и ещё раз ПОВЕРХ текста через SVG-фильтр «яркость → прозрачность» — дым и искры накрывают буквы дымкой. В покое видна статичная картинка. */
 .hero-fx-top{ display:none; }
+/* ДЕСКТОП: кадр 1920×1080 не «cover», а подогнан JS (fxFit): флакон целиком между шапкой и низом экрана. Края кадра растворяются в фон страницы. */
+@media (min-width:901px){
+  .hero{ --fx-feather:clamp(48px,8vw,150px); }
+  .hero-fx.fx-fit img{ inset:auto; left:var(--fx-l); top:var(--fx-t); width:var(--fx-w); height:var(--fx-h); object-fit:fill; object-position:50% 50%;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 var(--fx-feather),#000 calc(100% - var(--fx-feather)),transparent),linear-gradient(180deg,transparent,#000 var(--fx-feather),#000 calc(100% - var(--fx-feather)),transparent);
+    -webkit-mask-composite:source-in;
+    mask-image:linear-gradient(90deg,transparent,#000 var(--fx-feather),#000 calc(100% - var(--fx-feather)),transparent),linear-gradient(180deg,transparent,#000 var(--fx-feather),#000 calc(100% - var(--fx-feather)),transparent);
+    mask-composite:intersect; }
+}
 @media (min-width:901px) and (prefers-reduced-motion:no-preference){
   .hero-fx-pin{ position:absolute; inset:0; width:100%; height:100%; background:none; }
   .hero-fx-pin::after{ display:none; }
   .hero-fx, .hero-fx-top{ -webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 180px),transparent); mask-image:linear-gradient(180deg,#000 calc(100% - 180px),transparent); }   /* низ растворяется в фон страницы — без шва со следующей секцией */
-  .hero-fx canvas, .hero-fx-top canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; opacity:0; transition:opacity 1s ease; }
+  .hero-fx canvas, .hero-fx-top canvas{ position:absolute; left:var(--fx-l,0); top:var(--fx-t,0); width:var(--fx-w,100%); height:var(--fx-h,100%); display:block; opacity:0; transition:opacity 1s ease;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 var(--fx-feather),#000 calc(100% - var(--fx-feather)),transparent),linear-gradient(180deg,transparent,#000 var(--fx-feather),#000 calc(100% - var(--fx-feather)),transparent);
+    -webkit-mask-composite:source-in;
+    mask-image:linear-gradient(90deg,transparent,#000 var(--fx-feather),#000 calc(100% - var(--fx-feather)),transparent),linear-gradient(180deg,transparent,#000 var(--fx-feather),#000 calc(100% - var(--fx-feather)),transparent);
+    mask-composite:intersect; }
   .hero-fx-top canvas{ filter:url(#sprayLuma); }
   .hero.scene-on .hero-fx canvas, .hero.scene-on .hero-fx-top canvas{ opacity:1; }
   .hero.scene-snap .hero-fx canvas, .hero.scene-snap .hero-fx-top canvas{ transition:none; }   /* на старте подмена постер→кадры мгновенная */
@@ -474,6 +487,27 @@ footer{ border-top:1px solid var(--line-soft); padding:60px 0 40px; }
       <video id="sprayVideo" muted playsinline preload="auto" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
     </div>
   </div>
+  <script>
+  /* подгонка кадра hero (десктоп): кадр 1920×1080, колпачок на y≈157, низ флакона на y≈942.
+     Масштаб — «cover», но не больше того, при котором флакон целиком влезает между шапкой и низом экрана. */
+  function fxFit(){
+    var hero = document.getElementById('top'), fx = document.getElementById('heroFx');
+    if(!hero || !fx) return;
+    if(!matchMedia('(min-width: 901px)').matches){ fx.classList.remove('fx-fit'); return; }
+    var FW = 1920, FH = 1080, CAP = 157, BASE = 942, TOP = 118, BOT = 72;   // TOP/BOT — безопасные зоны под шапкой и над низом экрана
+    var W = document.documentElement.clientWidth, H = Math.max(hero.offsetHeight, innerHeight), Hv = Math.min(H, innerHeight);
+    var cover = Math.max(W / FW, H / FH);
+    var fit = (Hv - TOP - BOT) / (BASE - CAP);
+    var k = Math.max(Math.min(cover, fit), cover * .6), w = FW * k, h = FH * k;
+    var t = (Hv - h) / 2, capTop = t + CAP * k;
+    if(capTop < TOP) t += TOP - capTop;
+    var st = hero.style;
+    st.setProperty('--fx-l', ((W - w) * .72).toFixed(1) + 'px'); st.setProperty('--fx-t', t.toFixed(1) + 'px');
+    st.setProperty('--fx-w', w.toFixed(1) + 'px'); st.setProperty('--fx-h', h.toFixed(1) + 'px');
+    fx.classList.add('fx-fit');
+  }
+  fxFit(); addEventListener('resize', fxFit);
+  </script>
   <div class="hero-left">
     <span class="eyebrow reveal"><span class="t-ru">Международная выставка нишевой парфюмерии</span><span class="t-en">International niche perfumery exhibition</span></span>
     <h1 class="reveal" data-i="1">Sill<em>a</em>ge</h1>
@@ -955,16 +989,15 @@ if(sceneMq.matches){
   const ok = im => im && im.complete && im.naturalWidth;
   function sizeCanvas(){
     const dpr = Math.min(devicePixelRatio || 1, 2);
-    cw = Math.min(Math.round(innerWidth * dpr), 2560); ch = Math.round(cw * innerHeight / innerWidth);
+    cw = Math.min(Math.round(Math.max(cvsBase.getBoundingClientRect().width, 2) * dpr), 2560); ch = Math.round(cw * 9 / 16);   // canvas = рамка кадра 16:9 (позиция и размер — из fxFit)
     cvsBase.width = cvsTop.width = cw; cvsBase.height = cvsTop.height = ch; shown = -1;
   }
   function draw(i){
     let k = i; while(k > 0 && !ok(frames[k])) k--;            // кадр не успел загрузиться — рисуем ближайший прошлый
     if(k === shown || !ok(frames[k])) return;
-    const img = frames[k], s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
-    const dw = img.naturalWidth * s, dh = img.naturalHeight * s, dx = (cw - dw) * .72, dy = (ch - dh) * .5;   // cover, как у постера (object-position 72% 50%)
-    ctxBase.drawImage(img, dx, dy, dw, dh);
-    ctxTop.clearRect(0, 0, cw, ch); ctxTop.drawImage(img, dx, dy, dw, dh);
+    const img = frames[k];
+    ctxBase.drawImage(img, 0, 0, cw, ch);
+    ctxTop.clearRect(0, 0, cw, ch); ctxTop.drawImage(img, 0, 0, cw, ch);
     shown = k;
   }
   const ease = (a,b,x) => { x = Math.min(Math.max((x - a) / (b - a), 0), 1); return x * x * (3 - 2 * x); };
@@ -1035,6 +1068,7 @@ if(sceneMq.matches){
   if(document.readyState === 'complete') start(); else addEventListener('load', start, {once:true});
   sizeCanvas();
   addEventListener('resize', () => { sizeCanvas(); if(sPlaying) draw(Math.max(shown, 0)); });
+  addEventListener('load', () => { fxFit(); sizeCanvas(); });   // после загрузки высота hero финальная — пересчёт подгонки
 }
 
 /* ===== mobile menu ===== */
